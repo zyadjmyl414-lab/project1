@@ -1,0 +1,1138 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>مجمع الشامل | وجهتك للتسوق</title>
+    <meta
+      name="description"
+      content="مجمع الشامل - أفضل العروض والمنتجات في مكان واحد. تسوق الآن واستمتع بخصومات حصرية"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* ================= CSS المودال ================= */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      .modal-content {
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .modal-content h3 {
+        margin: 15px 0 10px;
+      }
+
+      .modal-content p {
+        margin-bottom: 20px;
+      }
+
+      #closeModal {
+        cursor: pointer;
+      }
+      .branches-select {
+        width: 100%;
+        padding: 10px 12px;
+        margin-top: 8px;
+        font-size: 14px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        background-color: #fafafa;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: inherit;
+      }
+
+      .branches-select:focus {
+        outline: none;
+        border-color: #c9a14a;
+        background-color: #fff;
+        box-shadow: 0 0 0 3px rgba(201, 161, 74, 0.15);
+      }
+      .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 18px;
+      }
+
+      .contact-icon {
+        width: 65px;
+        height: 65px;
+        border-radius: 18px; /* نفس انحناء كرت الفئة */
+        background: linear-gradient(135deg, #8a4116, #0dcaf0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 26px;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+      }
+      .contact-item:hover .contact-icon {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 12px 25px rgba(201, 161, 74, 0.35);
+      }
+
+      .contact-text h3 {
+        margin-bottom: 6px;
+        font-size: 16px;
+      }
+
+      .contact-text p {
+        font-size: 15px;
+        color: #555;
+      }
+      .branch-box {
+        display: none;
+        margin-top: 12px;
+        padding: 12px;
+        border-radius: 10px;
+        background: #f8f8f8;
+        border: 1px solid #e5e5e5;
+      }
+
+      .branch-box p {
+        font-size: 14px;
+        margin-bottom: 10px;
+        color: #444;
+        font-weight: 500;
+      }
+      /* 
+      .map-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 14px;
+        border-radius: 20px;
+        background: #8a4116;
+        color: #fff;
+        font-size: 13px;
+        text-decoration: none;
+        transition: 0.3s;
+      } */
+
+      .map-btn:hover {
+        background: #8a4116;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 10;
+      }
+
+      .hero-buttons a {
+        position: relative;
+        z-index: 11;
+      }
+      .slide::before,
+      .slide::after {
+        pointer-events: none;
+      }
+
+      .hero-slider,
+      .slide {
+        pointer-events: none;
+      }
+
+      .hero-content,
+      .hero-content * {
+        pointer-events: auto;
+      }
+      /* ======== تحسين قائمة العناوين ======== */
+/* ======== تصميم فخم لجميع عناصر الاتصال ======== */
+.contact-item {
+  background: linear-gradient(500deg, #f5f5f5, #8a4116);
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(201, 161, 74, 0.25);
+}
+
+.contact-item .contact-icon {
+  width: 70px;
+  height: 70px;
+  font-size: 28px;
+  border-radius: 20px;
+        background: linear-gradient(135deg, #8a4116, #0dcaf0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-item:hover .contact-icon {
+  transform: scale(1.1);
+  box-shadow: 0 10px 25px rgba(138, 65, 22, 0.4);
+}
+
+.contact-item .contact-text h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.contact-item .contact-text p {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* select الفروع */
+.branches-select {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.branches-select:focus {
+  outline: none;
+  border-color: #c9a14a;
+  box-shadow: 0 0 0 4px rgba(201, 161, 74, 0.15);
+}
+
+/* صندوق الفرع المحدد */
+.branch-box {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #fff7e6, #fff);
+  border: 1px solid #f1d6a6;
+  box-shadow: 0 5px 15px rgba(201, 161, 74, 0.15);
+  transition: all 0.3s ease;
+}
+
+.branch-box p {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.map-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #8a4116, #0dcaf0);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.map-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(138, 65, 22, 0.3);
+}
+
+/* ===== تقسيم الأعمدة (متجاوب تلقائيًا) ===== */
+.contact-columns {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* العمود الأيسر */
+.contact-info {
+  flex: 1;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* العمود الأيمن (النموذج) */
+.contact-form.small-form {
+  flex: 1;
+  min-width: 260px;
+  background: #fff;
+  padding: 20px 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.contact-form.small-form h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.contact-form.small-form .form-group {
+  margin-bottom: 14px;
+}
+
+.contact-form.small-form input,
+.contact-form.small-form textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease;
+}
+
+.contact-form.small-form input:focus,
+.contact-form.small-form textarea:focus {
+  border-color: #c9a14a;
+  box-shadow: 0 0 0 3px rgba(201, 161, 74, 0.15);
+}
+
+.contact-form.small-form button {
+  padding: 12px 18px;
+  font-size: 14px;
+  border-radius: 12px;
+}
+
+/* ===== موبايل فقط ===== */
+@media (max-width: 768px) {
+  .contact-columns {
+    flex-direction: column;
+  }
+
+  .contact-form.small-form button {
+    width: 100%;
+  }
+}
+
+
+
+    </style>
+  </head>
+
+  <body>
+    <!-- ================= LOADER ================= -->
+    <div class="loader" id="loader">
+      <div class="spinner"></div>
+      <p>جاري التحميل...</p>
+    </div>
+
+    <!-- ================= HEADER ================= -->
+    <header class="header" id="header">
+      <div class="container">
+        <div class="logo">
+          <div class="logo-icon">
+            <img src="logo.png" alt="Shopping Bag" class="icon-img" />
+          </div>
+          <h3>
+            أسواق شركة مجمع <br />
+            <span>الشامل</span>
+          </h3>
+        </div>
+
+        <nav class="navbar" id="navbar">
+          <ul class="nav-menu" id="nav-menu">
+            <li><a href="#home" class="nav-link active">الرئيسية</a></li>
+            <li class="dropdown">
+              <a href="#departments" class="nav-link"
+                >أقسامنا <i class="fas fa-chevron-down"></i
+              ></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="products.html?cat=food"
+                    ><i class="fas fa-apple-alt"></i> المواد الغذائية</a
+                  >
+                </li>
+                <li>
+                  <a href="products.html?cat=sweets"
+                    ><i class="fas fa-cookie-bite"></i> الحلويات</a
+                  >
+                </li>
+                <li>
+                  <a href="products.html?cat=men"
+                    ><i class="fas fa-user-tie"></i> الملابس الرجالية</a
+                  >
+                </li>
+                <li>
+                  <a href="products.html?cat=women"
+                    ><i class="fas fa-female"></i> الملابس النسائية</a
+                  >
+                </li>
+                <li>
+                  <a href="products.html?cat=shoes"
+                    ><i class="fas fa-shoe-prints"></i> الأحذية</a
+                  >
+                </li>
+                <li>
+                  <a href="products.html?cat=home"
+                    ><i class="fas fa-blender"></i> الأواني المنزلية</a
+                  >
+                </li>
+                <li>
+                  <a href="products.html?cat=toys"
+                    ><i class="fas fa-gamepad"></i> الألعاب</a
+                  >
+                </li>
+                <li>
+                  <a href="products.html?cat=perfume"
+                    ><i class="fas fa-spray-can"></i> العطور</a
+                  >
+                </li>
+                <li>
+                  <a href="products.html?cat=gifts"
+                    ><i class="fas fa-gift"></i> الهدايا والكماليات</a
+                  >
+                </li>
+                <li>
+                  <a href="products.html?cat=travel"
+                    ><i class="fas fa-suitcase-rolling"></i> السفر</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li><a href="#offers" class="nav-link">العروض</a></li>
+            <li><a href="#about" class="nav-link">من نحن</a></li>
+            <li><a href="#contact" class="nav-link">اتصل بنا</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <button class="btn-icon" id="searchBtn" title="بحث">
+            <i class="fas fa-search"></i>
+          </button>
+          <button class="btn-icon" id="cartBtn" title="سلة التسوق">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count" id="cartCount">0</span>
+          </button>
+          <button class="btn-icon" id="darkModeToggle" title="الوضع الليلي">
+            <i class="fas fa-moon"></i>
+          </button>
+
+          <!-- <a href="login.html" class="btn btn-primary"> تسجيل الدخول </a> -->
+          <a href="login.html" class="btn btn-primary"> تسجيل الدخول </a>
+
+          <div class="menu-toggle" id="menu-toggle">
+            <i class="fas fa-bars"></i>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================= HERO SECTION ================= -->
+    <section class="hero" id="home">
+      <div class="hero-slider">
+        <div
+          class="slide active"
+          style="
+            background-image:
+              linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+              url(&quot;https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80&quot;);
+          "
+        >
+          <div class="hero-content">
+            <h1 class="animate-text">مرحباً بكم في أسواق الشامل</h1>
+            <p class="animate-text">احصل على أفضل تجربة تسوق</p>
+            <div class="hero-buttons">
+              <a href="products.html" class="btn btn-primary animate-btn"
+                >تسوق الآن</a
+              >
+              <a href="#offers" class="btn btn-outline animate-btn">العروض</a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="slide"
+          style="
+            background-image:
+              linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+              url(&quot;https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=1470&q=80&quot;);
+          "
+        >
+          <div class="hero-content">
+            <h1 class="animate-text">اكتشف جميع الفئات</h1>
+            <p class="animate-text">عطور • إلكترونيات • ملابس • إكسسوارات</p>
+
+            <div class="hero-buttons">
+              <a href="#departments" class="btn btn-primary animate-btn">
+                تصفح الفئات
+              </a>
+              <a href="products.html" class="btn btn-outline animate-btn">
+                عرض الكل
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="slide"
+          style="
+            background-image:
+              linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+              url(&quot;https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80&quot;);
+          "
+        >
+          <div class="hero-content">
+            <h1 class="animate-text">خصومات تصل إلى 50%</h1>
+            <p class="animate-text">عروض حصرية على جميع الأقسام</p>
+            <div class="hero-buttons">
+              <a href="products.html" class="btn btn-primary animate-btn"
+                >تصفح المنتجات</a
+              >
+              <a href="#offers" class="btn btn-outline animate-btn">عرض الكل</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slider-controls">
+        <button class="prev" id="prevBtn">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="dots" id="dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <button class="next" id="nextBtn">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ================= STATS SECTION ================= -->
+    <section class="stats">
+      <div class="container">
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="fas fa-box-open"></i>
+          </div>
+          <div class="stat-info">
+            <h3 class="stat-number" data-target="250000">0</h3>
+            <p>منتج متنوع</p>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="fas fa-percentage"></i>
+          </div>
+          <div class="stat-info">
+            <h3 class="stat-number" data-target="11">0</h3>
+            <p>سنوات الخبرة</p>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="fas fa-store"></i>
+          </div>
+          <div class="stat-info">
+            <h3 class="stat-number" data-target="5">0</h3>
+            <p>فروع في المملكة</p>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="stat-info">
+            <h3 class="stat-number" data-target="20000">0</h3>
+            <p>عميل</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DEPARTMENTS SECTION ================= -->
+    <section class="departments" id="departments">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">تسوق حسب الفئة</h2>
+          <p class="section-description">
+            اكتشف مجموعة واسعة من المنتجات المتنوعة
+          </p>
+        </div>
+
+        <div class="categories-grid">
+          <!-- أدوات منزلية -->
+          <a href="products.html?cat=home-tools" class="category-card">
+            <div class="category-icon">
+              <i class="fas fa-home"></i>
+            </div>
+            <h3>أدوات منزلية</h3>
+            <p>كل احتياجات منزلك بسهولة</p>
+          </a>
+
+          <!-- عطور -->
+          <a href="products.html?cat=perfume" class="category-card">
+            <div class="category-icon">
+              <i class="fas fa-wine-bottle"></i>
+            </div>
+            <h3>عطور</h3>
+            <p>روائح فاخرة ومميزة</p>
+          </a>
+
+          <!-- اكسسورات -->
+          <a href="products.html?cat=accessories" class="category-card">
+            <div class="category-icon">
+              <i class="fas fa-gem"></i>
+            </div>
+            <h3>اكسسورات</h3>
+            <p>لمسة أناقة لكل إطلالة</p>
+          </a>
+
+          <!-- تحف وهدايا -->
+          <a href="products.html?cat=gifts" class="category-card">
+            <div class="category-icon">
+              <i class="fas fa-gift"></i>
+            </div>
+            <h3>تحف وهدايا</h3>
+            <p>أفكار هدايا مميزة لكل المناسبات</p>
+          </a>
+
+          <!-- أحذية -->
+          <a href="products.html?cat=shoes" class="category-card">
+            <div class="category-icon">
+              <i class="fas fa-shoe-prints"></i>
+            </div>
+            <h3>أحذية</h3>
+            <p>لجميع الأعمار والمناسبات</p>
+          </a>
+
+          <!-- ملابس رجالية -->
+          <a href="products.html?cat=men-clothing" class="category-card">
+            <div class="category-icon">
+              <i class="fas fa-male"></i>
+            </div>
+            <h3>ملابس رجالية</h3>
+            <p>أحدث صيحات الموضة للرجال</p>
+          </a>
+
+          <!-- ملابس نسائية -->
+          <a href="products.html?cat=women-clothing" class="category-card">
+            <div class="category-icon">
+              <i class="fas fa-female"></i>
+            </div>
+            <h3>ملابس نسائية</h3>
+            <p>أحدث صيحات الموضة للنساء</p>
+          </a>
+
+          <!-- ألعاب -->
+          <a href="products.html?cat=toys" class="category-card">
+            <div class="category-icon">
+              <i class="fas fa-gamepad"></i>
+            </div>
+            <h3>ألعاب</h3>
+            <p>متعة لجميع الأعمار</p>
+          </a>
+
+          <!-- مكتبية -->
+          <a href="products.html?cat=stationery" class="category-card">
+            <div class="category-icon">
+              <i class="fas fa-pen-fancy"></i>
+            </div>
+            <h3>مكتبية</h3>
+            <p>معدات مكتبية لجميع الاحتياجات</p>
+          </a>
+
+          <!-- كماليات -->
+          <a href="products.html?cat=essentials" class="category-card">
+            <div class="category-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <h3>كماليات</h3>
+            <p>إكسسوارات وأشياء ضرورية للحياة اليومية</p>
+          </a>
+
+          <!-- حلويات -->
+          <a href="products.html?cat=sweets" class="category-card">
+            <div class="category-icon">
+              <i class="fas fa-candy-cane"></i>
+            </div>
+            <h3>حلويات</h3>
+            <p>مذاقات لذيذة تناسب جميع الأذواق</p>
+          </a>
+
+          <!-- مواد غذائية -->
+          <a href="products.html?cat=food" class="category-card">
+            <div class="category-icon">
+              <i class="fas fa-utensils"></i>
+            </div>
+            <h3>مواد غذائية</h3>
+            <p>منتجات طازجة وصحية يومياً</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= OFFERS SECTION ================= -->
+    <section class="offers" id="offers">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">عروض مميزة</h2>
+          <p class="section-description">لا تفوت فرصة الحصول على أفضل العروض</p>
+        </div>
+
+        <div class="offers-grid">
+          <div class="offer-card featured">
+            <div class="offer-badge">خصم 25%</div>
+            <div class="offer-image">
+              <i class="fas fa-shopping-basket"></i>
+            </div>
+            <div class="offer-content">
+              <h3>على جميع المواد الغذائية</h3>
+              <p>خصم 25% على جميع المنتجات الغذائية لمدة محدودة</p>
+              <div class="offer-timer" id="timer1">
+                <div class="time-unit">
+                  <span class="days">00</span>
+                  <span class="label">يوم</span>
+                </div>
+                <div class="time-unit">
+                  <span class="hours">00</span>
+                  <span class="label">ساعة</span>
+                </div>
+                <div class="time-unit">
+                  <span class="minutes">00</span>
+                  <span class="label">دقيقة</span>
+                </div>
+                <div class="time-unit">
+                  <span class="seconds">00</span>
+                  <span class="label">ثانية</span>
+                </div>
+              </div>
+              <button
+                class="btn btn-primary"
+                onclick="addToCart('عرض المواد الغذائية', 25)"
+              >
+                <i class="fas fa-cart-plus"></i> أضف إلى السلة
+              </button>
+            </div>
+          </div>
+
+          <div class="offer-card">
+            <div class="offer-badge">خصم 20%</div>
+            <div class="offer-image">
+              <i class="fas fa-tshirt"></i>
+            </div>
+            <div class="offer-content">
+              <h3>على الملابس</h3>
+              <p>خصم 20% على جميع الملابس الرجالية والنسائية</p>
+              <div class="offer-timer" id="timer2">
+                <div class="time-unit">
+                  <span class="days">00</span>
+                  <span class="label">يوم</span>
+                </div>
+                <div class="time-unit">
+                  <span class="hours">00</span>
+                  <span class="label">ساعة</span>
+                </div>
+                <div class="time-unit">
+                  <span class="minutes">00</span>
+                  <span class="label">دقيقة</span>
+                </div>
+                <div class="time-unit">
+                  <span class="seconds">00</span>
+                  <span class="label">ثانية</span>
+                </div>
+              </div>
+              <button
+                class="btn btn-primary"
+                onclick="addToCart('عرض الملابس', 20)"
+              >
+                <i class="fas fa-cart-plus"></i> أضف إلى السلة
+              </button>
+            </div>
+          </div>
+
+          <div class="offer-card">
+            <div class="offer-badge">خصم 15%</div>
+            <div class="offer-image">
+              <i class="fas fa-spray-can"></i>
+            </div>
+            <div class="offer-content">
+              <h3>على العطور</h3>
+              <p>خصم 15% على جميع العطور الفاخرة</p>
+              <div class="offer-timer" id="timer3">
+                <div class="time-unit">
+                  <span class="days">00</span>
+                  <span class="label">يوم</span>
+                </div>
+                <div class="time-unit">
+                  <span class="hours">00</span>
+                  <span class="label">ساعة</span>
+                </div>
+                <div class="time-unit">
+                  <span class="minutes">00</span>
+                  <span class="label">دقيقة</span>
+                </div>
+                <div class="time-unit">
+                  <span class="seconds">00</span>
+                  <span class="label">ثانية</span>
+                </div>
+              </div>
+              <button
+                class="btn btn-primary"
+                onclick="addToCart('عرض العطور', 15)"
+              >
+                <i class="fas fa-cart-plus"></i> أضف إلى السلة
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FEATURED PRODUCTS ================= -->
+    <section class="featured-products">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">منتجات مميزة</h2>
+          <p class="section-description">اكتشف أحدث المنتجات لدينا</p>
+          <a href="products.html" class="btn btn-outline">عرض الكل</a>
+        </div>
+
+        <div class="products-grid" id="featuredProducts">
+          <!-- سيتم ملؤها من JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT SECTION ================= -->
+    <section class="about" id="about">
+      <div class="container">
+        <div class="about-content">
+          <div class="about-image">
+            <img src="images/how.jpg" alt="عن مجمع الشامل" />
+            <div class="about-stats">
+              <div class="about-stat">
+                <h3>10+</h3>
+                <p>سنوات خبرة</p>
+              </div>
+              <div class="about-stat">
+                <h3>4</h3>
+                <p>فروع</p>
+              </div>
+            </div>
+          </div>
+          <div class="about-text">
+            <h2>من نحن؟</h2>
+            <p>
+              مجمع الشامل هو وجهتك المثالية للتسوق، حيث نقدم مجموعة متنوعة من
+              المنتجات عالية الجودة بأسعار مناسبة تحت سقف واحد.
+            </p>
+            <p>
+              هدفنا هو تلبية جميع احتياجات العملاء وتقديم أفضل تجربة تسوق ممكنة
+              من خلال فريق محترف وخدمة عملاء متميزة.
+            </p>
+            <div class="about-features">
+              <div class="feature">
+                <i class="fas fa-shopping-cart"></i>
+                <span>تسوق ممتع</span>
+              </div>
+              <div class="feature">
+                <i class="fas fa-undo"></i>
+                <span>إرجاع سهل</span>
+              </div>
+              <div class="feature">
+                <i class="fas fa-shield-alt"></i>
+                <span>دفع آمن</span>
+              </div>
+              <div class="feature">
+                <i class="fas fa-tags"></i>
+                <span>أفضل الأسعار</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT SECTION ================= -->
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">تواصل معنا</h2>
+          <p class="section-description">نحن هنا للإجابة على جميع استفساراتك</p>
+        </div>
+
+      <div class="contact-content">
+       <div class="contact-info">
+
+    <div class="contact-item">
+      <div class="contact-icon">
+        <i class="fas fa-phone"></i>
+      </div>
+      <div class="contact-text">
+        <h3>الهاتف</h3>
+        <p>+966 50-326-1911</p>
+      </div>
+    </div>
+
+    <div class="contact-item">
+      <div class="contact-icon">
+        <i class="fas fa-envelope"></i>
+      </div>
+      <div class="contact-text">
+        <h3>البريد الإلكتروني</h3>
+        <p>info@shamel-market.com</p>
+      </div>
+    </div>
+
+    <div class="contact-item address">
+      <div class="contact-icon">
+        <i class="fas fa-map-signs"></i>
+      </div>
+      <div class="contact-text">
+        <h3>العناوين</h3>
+        <select class="branches-select" id="branchSelect">
+          <option selected disabled>اختر الفرع</option>
+          <option value="https://maps.google.com/?q=Jeddah+60+Street">جدة – فرع الستين</option>
+          <option value="https://maps.google.com/?q=Jeddah+70+Street">جدة – فرع السبعين</option>
+          <option value="https://maps.app.goo.gl/pvNbY6mhQqZTxTDu9">الرياض – مخرج 29 شارع بلال بن رباح</option>
+          <option value="https://maps.google.com/?q=Khamis+Mushait+Al+Khalidiyah">خميس مشيط – الخالدية</option>
+          <option value="https://maps.google.com/?q=Khobar+King+Fahd+Road+Mall">شركة عالم الأسعار – الخبر طريق الملك فهد جوار الخبر مول</option>
+        </select>
+        <div class="branch-box" id="branchBox">
+          <p id="branchName"></p>
+          <a id="mapLink" target="_blank" class="map-btn">
+            <i class="fas fa-location-arrow"></i> فتح الموقع على الخريطة
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-item">
+      <div class="contact-icon">
+        <i class="fas fa-clock"></i>
+      </div>
+      <div class="contact-text">
+        <h3>ساعات العمل</h3>
+        <p>من 9 ص إلى 12 م - طوال أيام الأسبوع ماعدا الجمعة من 2 ظهراً</p>
+      </div>
+    </div>
+
+    </div>
+  </div>
+
+
+<div class="contact-content contact-columns">
+  <div class="contact-info">
+    <!-- عناصر الاتصال كما هي -->
+  </div>
+
+  <form class="contact-form small-form" id="contactForm">
+    <h3>أرسل رسالة</h3>
+    <div class="form-group">
+      <input type="text" id="name" name="name" required />
+      <label for="name">الاسم الكامل</label>
+    </div>
+    <div class="form-group">
+      <input type="email" id="email" name="email" required />
+      <label for="email">البريد الإلكتروني</label>
+    </div>
+    <div class="form-group">
+      <input type="text" id="subject" name="subject" required />
+      <label for="subject">الموضوع</label>
+    </div>
+    <div class="form-group">
+      <textarea id="message" name="message" rows="3" required></textarea>
+      <label for="message">الرسالة</label>
+    </div>
+    <button type="submit" class="btn btn-primary">
+      <i class="fas fa-paper-plane"></i> إرسال رسالة
+    </button>
+  </form>
+</div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-brand">
+            <div class="logo">
+              <div class="logo-icon">
+                <img
+                  src="logo.png"
+                  alt="شعار أسواق شركة مجمع الشامل"
+                  class="logo-img"
+                />
+              </div>
+              <h2>أسواق شركة مجمع <span>الشامل</span></h2>
+            </div>
+            <p>وجهتك المثالية للتسوق</p>
+            <div class="social-links">
+              <a href="https://www.facebook.com" target="_blank"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="https://www.instagram.com" target="_blank"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="https://www.snapchat.com" target="_blank"
+                ><i class="fab fa-snapchat-ghost"></i
+              ></a>
+              <a href="https://www.tiktok.com" target="_blank"
+                ><i class="fab fa-tiktok"></i
+              ></a>
+            </div>
+          </div>
+
+          <div class="footer-links">
+            <h3>المنتجات</h3>
+            <ul>
+              <li><a href="products.html?cat=food">المواد الغذائية</a></li>
+              <li><a href="products.html?cat=clothes">الملابس</a></li>
+              <li><a href="products.html?cat=shoes">الأحذية</a></li>
+              <li><a href="products.html?cat=perfume">العطور</a></li>
+              <li><a href="products.html?cat=gifts">الهدايا</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links">
+            <h3>روابط سريعة</h3>
+            <ul>
+              <li><a href="#home">الرئيسية</a></li>
+              <li><a href="#about">من نحن</a></li>
+              <li><a href="#offers">العروض</a></li>
+              <li><a href="cart.html">سلة التسوق</a></li>
+              <li><a href="login.html">تسجيل الدخول</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-links">
+            <h3>الدعم</h3>
+            <ul>
+              <li><a href="#contact">اتصل بنا</a></li>
+              <li><a href="#">الأسئلة الشائعة</a></li>
+              <li><a href="#">سياسة الإرجاع</a></li>
+              <li><a href="#">سياسة الخصوصية</a></li>
+              <li><a href="#">الشروط والأحكام</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 مجمع الشامل. جميع الحقوق محفوظة | </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ================= CART SIDEBAR ================= -->
+    <div class="cart-sidebar" id="cartSidebar">
+      <a
+        href="cart.html"
+        class="cart-header-link"
+        style="text-decoration: none; color: inherit"
+      >
+        <div class="cart-header">
+          <h3><i class="fas fa-shopping-cart"></i> سلة التسوق</h3>
+          <button class="close-cart" id="closeCart">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </a>
+      <div class="cart-items" id="cartItems">
+        <!-- سيتم ملؤها من JavaScript -->
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>الإجمالي:</span>
+          <span id="cartTotal">0 ر.س</span>
+        </div>
+        <button class="btn btn-primary btn-block" id="checkoutBtn1">
+          <i class="fas fa-ban"></i> الدفع
+        </button>
+      </div>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- ================= SEARCH MODAL ================= -->
+    <div class="search-modal" id="searchModal">
+      <div class="search-content">
+        <button class="close-search" id="closeSearch">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="search-form">
+          <input type="text" id="searchInput" placeholder="ابحث عن منتج..." />
+          <button type="submit"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="search-results" id="searchResults">
+          <!-- سيتم ملؤها من JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= BACK TO TOP ================= -->
+    <button class="back-to-top" id="backToTop">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- ================= JS ================= -->
+
+    <div class="modal" id="checkoutModal">
+      <div class="modal-content">
+        <i class="fas fa-store modal-icon"></i>
+        <h3>تنبيه</h3>
+        <p>غير مسموح الدفع عبر الموقع<br />يرجى زيارة أحد فروعنا</p>
+        <button class="btn btn-primary" id="closeModal">تمـام</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="app-safe.js"></script>
+
+    <script>
+      const branchSelect = document.getElementById("branchSelect");
+      const branchBox = document.getElementById("branchBox");
+      const branchName = document.getElementById("branchName");
+      const mapLink = document.getElementById("mapLink");
+
+      branchSelect.addEventListener("change", function () {
+        const selectedText = this.options[this.selectedIndex].text;
+        const mapUrl = this.value;
+
+        branchName.textContent = selectedText;
+        mapLink.href = mapUrl;
+        branchBox.style.display = "block";
+      });
+      document.getElementById("loader")?.classList.add("hidden");
+      document.getElementById("overlay")?.classList.remove("active");
+    </script>
+  </body>
+</html>

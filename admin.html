@@ -1,0 +1,1374 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>لوحة التحكم | مجمع الشامل</title>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Admin Panel Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --sidebar-width: 280px;
+        --header-height: 70px;
+        --primary-color: #8a4116;
+        --primary-dark: #368181;
+        --secondary-color: #6c757d;
+        --success-color: #198754;
+        --danger-color: #dc3545;
+        --warning-color: #ffc107;
+        --info-color: #0dcaf0;
+        --light-color: #f8f9fa;
+        --dark-color: #212529;
+        --white: #ffffff;
+        --black: #000000;
+        --bg-color: #f5f5f5;
+        --bg-dark: #121212;
+        --text-color: #333333;
+        --text-dark: #eeeeee;
+        --card-bg: #ffffff;
+        --card-bg-dark: #1e1e1e;
+        --border-color: #e0e0e0;
+        --border-dark: #333333;
+        --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+        --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+        --border-radius: 12px;
+        --border-radius-sm: 6px;
+        --border-radius-lg: 20px;
+        --transition: all 0.3s ease;
+        --transition-fast: all 0.2s ease;
+        --font-family: "Tajawal", sans-serif;
+        --font-size-base: 16px;
+        --line-height: 1.6;
+      }
+
+      body {
+        font-family: var(--font-family);
+        font-size: var(--font-size-base);
+        line-height: var(--line-height);
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        transition: var(--transition);
+        overflow-x: hidden;
+      }
+
+      body.dark-mode {
+        --bg-color: var(--bg-dark);
+        --text-color: var(--text-dark);
+        --card-bg: var(--card-bg-dark);
+        --border-color: var(--border-dark);
+      }
+
+      /* Admin Layout */
+      .admin-layout {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* Sidebar */
+      .admin-sidebar {
+        width: var(--sidebar-width);
+        background-color: var(--card-bg);
+        box-shadow: var(--shadow-md);
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        z-index: 1000;
+        transition: var(--transition);
+      }
+
+      .sidebar-header {
+        height: var(--header-height);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid var(--border-color);
+        padding: 0 20px;
+      }
+
+      .sidebar-header h2 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--primary-color);
+      }
+
+      .sidebar-menu {
+        padding: 20px 0;
+        height: calc(100vh - var(--header-height));
+        overflow-y: auto;
+      }
+
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 15px 25px;
+        color: var(--text-color);
+        text-decoration: none;
+        transition: var(--transition);
+        cursor: pointer;
+        border-right: 3px solid transparent;
+      }
+
+      .sidebar-item:hover,
+      .sidebar-item.active {
+        background-color: rgba(13, 110, 253, 0.1);
+        color: var(--primary-color);
+        border-right-color: var(--primary-color);
+      }
+
+      .sidebar-item i {
+        width: 20px;
+        text-align: center;
+      }
+
+      /* Main Content */
+      .admin-main {
+        flex: 1;
+        margin-right: var(--sidebar-width);
+        background-color: var(--bg-color);
+      }
+
+      .admin-header {
+        height: var(--header-height);
+        background-color: var(--card-bg);
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 30px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .admin-header h1 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-color);
+      }
+
+      .admin-actions {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .admin-content {
+        padding: 30px;
+      }
+
+      /* Stats Cards */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+        margin-bottom: 30px;
+      }
+
+      .stat-card {
+        background-color: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 25px;
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        transition: var(--transition);
+      }
+
+      .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .stat-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: var(--white);
+      }
+
+      .stat-icon.blue {
+        background-color: var(--info-color);
+      }
+      .stat-icon.green {
+        background-color: var(--success-color);
+      }
+      .stat-icon.orange {
+        background-color: var(--warning-color);
+      }
+      .stat-icon.red {
+        background-color: var(--danger-color);
+      }
+
+      .stat-info h3 {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--text-color);
+        margin-bottom: 5px;
+      }
+
+      .stat-info p {
+        color: var(--secondary-color);
+        font-size: 0.9rem;
+      }
+
+      /* Content Sections */
+      .content-section {
+        display: none;
+      }
+
+      .content-section.active {
+        display: block;
+      }
+
+      /* Table Styles */
+      .data-table {
+        background-color: var(--card-bg);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-sm);
+        overflow: hidden;
+      }
+
+      .table-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 25px;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .table-header h3 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--text-color);
+      }
+
+      .table-responsive {
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 15px;
+        text-align: right;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      th {
+        background-color: var(--bg-color);
+        font-weight: 600;
+        color: var(--text-color);
+      }
+
+      body.dark-mode th {
+        background-color: var(--card-bg-dark);
+      }
+
+      .btn-sm {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        border-radius: var(--border-radius-sm);
+      }
+
+      .btn-icon {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+      }
+
+      /* Form Styles */
+      .form-card {
+        background-color: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 30px;
+        box-shadow: var(--shadow-sm);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--text-color);
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid var(--border-color);
+        border-radius: var(--border-radius-sm);
+        font-family: var(--font-family);
+        font-size: 1rem;
+        transition: var(--transition);
+      }
+
+      body.dark-mode .form-group input,
+      body.dark-mode .form-group select,
+      body.dark-mode .form-group textarea {
+        background-color: var(--card-bg-dark);
+        border-color: var(--border-dark);
+        color: var(--text-dark);
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        border-color: var(--primary-color);
+        outline: none;
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+      }
+
+      .modal.show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-content {
+        background-color: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 30px;
+        max-width: 500px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .modal-header h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-color);
+      }
+
+      .close-modal {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--secondary-color);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .admin-sidebar {
+          transform: translateX(100%);
+        }
+
+        .admin-sidebar.show {
+          transform: translateX(0);
+        }
+
+        .admin-main {
+          margin-right: 0;
+        }
+
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+      }
+      /* Floating Labels */
+      .form-group.floating {
+        position: relative;
+      }
+
+      .form-group.floating input,
+      .form-group.floating textarea,
+      .form-group.floating select {
+        padding: 16px 12px;
+      }
+
+      .form-group.floating label {
+        position: absolute;
+        top: 50%;
+        right: 12px;
+        transform: translateY(-50%);
+        background: var(--card-bg);
+        padding: 0 6px;
+        color: var(--secondary-color);
+        font-size: 0.95rem;
+        pointer-events: none;
+        transition: var(--transition-fast);
+      }
+
+      /* عند التركيز أو وجود قيمة */
+      .form-group.floating input:focus + label,
+      .form-group.floating textarea:focus + label,
+      .form-group.floating select:focus + label,
+      .form-group.floating input:not(:placeholder-shown) + label,
+      .form-group.floating textarea:not(:placeholder-shown) + label,
+      .form-group.floating select:not([value=""]) + label {
+        top: -8px;
+        font-size: 0.75rem;
+        color: var(--primary-color);
+      }
+
+      /* Dark Mode */
+      body.dark-mode .form-group.floating label {
+        background: var(--card-bg-dark);
+      }
+      /* في قسم Admin Panel Styles */
+      .btn-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: none;
+        background: var(--bg-color);
+        color: var(--text-color);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        transition: var(--transition);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .btn-icon:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+
+      body.dark-mode .btn-icon {
+        background: var(--card-bg-dark);
+        color: var(--text-dark);
+      }
+      @media (prefers-reduced-motion: reduce) {
+    body * {
+        transition: none !important;
+    }
+}
+@media screen and (min-width: 768px) {
+    .dark-mode-toggle:hover {
+        transform: scale(1.1);
+    }
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="admin-layout">
+      <!-- Sidebar -->
+      <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+          <h2>لوحة التحكم</h2>
+        </div>
+        <nav class="sidebar-menu">
+          <a
+            href="#"
+            class="sidebar-item active"
+            onclick="showSection('dashboard', event)"
+
+          >
+            <i class="fas fa-tachometer-alt"></i>
+            <span>الإحصائيات</span>
+          </a>
+          <a href="#" class="sidebar-item" onclick="showSection('users')">
+            <i class="fas fa-users"></i>
+            <span>المستخدمين</span>
+          </a>
+          <a href="#" class="sidebar-item" onclick="showSection('products')">
+            <i class="fas fa-box"></i>
+            <span>المنتجات</span>
+          </a>
+          <a href="#" class="sidebar-item" onclick="showSection('offers')">
+            <i class="fas fa-tags"></i>
+            <span>العروض</span>
+          </a>
+          <a href="#" class="sidebar-item" onclick="showSection('orders')">
+            <i class="fas fa-shopping-cart"></i>
+            <span>الطلبات</span>
+          </a>
+          <a href="#" class="sidebar-item" onclick="showSection('settings')">
+            <i class="fas fa-cog"></i>
+            <span>الإعدادات</span>
+          </a>
+          <a href="#" class="sidebar-item" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>تسجيل الخروج</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="admin-main">
+        <!-- Header -->
+        <header class="admin-header">
+          <h1 id="sectionTitle">الإحصائيات</h1>
+
+          <div class="admin-actions">
+            <button class="btn-icon" id="darkModeToggle" title="الوضع الليلي">
+              <i class="fas fa-moon"></i>
+            </button>
+            <button class="btn btn-primary" onclick="showAddModal()">
+              <i class="fas fa-plus"></i>
+              إضافة جديد
+            </button>
+          </div>
+        </header>
+
+        <!-- Content -->
+        <div class="admin-content">
+          <!-- Dashboard Section -->
+          <section id="dashboard" class="content-section active">
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-icon blue">
+                  <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                  <h3 id="totalUsers">0</h3>
+                  <p>إجمالي المستخدمين</p>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon green">
+                  <i class="fas fa-box"></i>
+                </div>
+                <div class="stat-info">
+                  <h3 id="totalProducts">0</h3>
+                  <p>إجمالي المنتجات</p>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon orange">
+                  <i class="fas fa-tags"></i>
+                </div>
+                <div class="stat-info">
+                  <h3 id="totalOffers">0</h3>
+                  <p>إجمالي العروض</p>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon red">
+                  <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="stat-info">
+                  <h3 id="totalOrders">0</h3>
+                  <p>إجمالي الطلبات</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Users Section -->
+          <section id="users" class="content-section">
+            <div class="data-table">
+              <div class="table-header">
+                <h3>إدارة المستخدمين</h3>
+                <button
+                  class="btn btn-primary btn-sm"
+                  onclick="showAddUserModal()"
+                >
+                  <i class="fas fa-plus"></i>
+                  إضافة مستخدم
+                </button>
+              </div>
+              <div class="table-responsive">
+                <table id="usersTable">
+                  <thead>
+                    <tr>
+                      <th>الاسم</th>
+                      <th>البريد الإلكتروني</th>
+                      <th>رقم الجوال</th>
+                      <th>الدور</th>
+                      <th>الحالة</th>
+                      <th>الإجراءات</th>
+                    </tr>
+                  </thead>
+                  <tbody id="usersTableBody">
+                    <!-- Users will be loaded here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- Products Section -->
+          <section id="products" class="content-section">
+            <div class="data-table">
+              <div class="table-header">
+                <h3>إدارة المنتجات</h3>
+                <button
+                  class="btn btn-primary btn-sm"
+                  onclick="showAddProductModal()"
+                >
+                  <i class="fas fa-plus"></i>
+                  إضافة منتج
+                </button>
+              </div>
+              <div class="table-responsive">
+                <table id="productsTable">
+                  <thead>
+                    <tr>
+                      <th>الصورة</th>
+                      <th>الاسم</th>
+                      <th>الفئة</th>
+                      <th>السعر</th>
+                      <th>الخصم</th>
+                      <th>التقييم</th>
+                      <th>الإجراءات</th>
+                    </tr>
+                  </thead>
+                  <tbody id="productsTableBody">
+                    <!-- Products will be loaded here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- Offers Section -->
+          <section id="offers" class="content-section">
+            <div class="data-table">
+              <div class="table-header">
+                <h3>إدارة العروض</h3>
+                <button
+                  class="btn btn-primary btn-sm"
+                  onclick="showAddOfferModal()"
+                >
+                  <i class="fas fa-plus"></i>
+                  إضافة عرض
+                </button>
+              </div>
+              <div class="table-responsive">
+                <table id="offersTable">
+                  <thead>
+                    <tr>
+                      <th>العنوان</th>
+                      <th>الخصم</th>
+                      <th>تاريخ البداية</th>
+                      <th>تاريخ النهاية</th>
+                      <th>الحالة</th>
+                      <th>الإجراءات</th>
+                    </tr>
+                  </thead>
+                  <tbody id="offersTableBody">
+                    <!-- Offers will be loaded here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- Orders Section -->
+          <section id="orders" class="content-section">
+            <div class="data-table">
+              <div class="table-header">
+                <h3>إدارة الطلبات</h3>
+              </div>
+              <div class="table-responsive">
+                <table id="ordersTable">
+                  <thead>
+                    <tr>
+                      <th>رقم الطلب</th>
+                      <th>العميل</th>
+                      <th>تاريخ الطلب</th>
+                      <th>الإجمالي</th>
+                      <th>الحالة</th>
+                      <th>الإجراءات</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ordersTableBody">
+                    <!-- Orders will be loaded here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- Settings Section -->
+          <section id="settings" class="content-section">
+            <div class="form-card">
+              <h3>إعدادات الموقع</h3>
+              <form id="settingsForm">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    id="siteName"
+                    name="siteName"
+                    value="مجمع الشامل"
+                  />
+                  <label for="siteName">اسم الموقع</label>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="email"
+                    id="siteEmail"
+                    name="siteEmail"
+                    value="info@shamel-market.com"
+                  />
+                  <label for="siteEmail">البريد الإلكتروني</label>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="tel"
+                    id="sitePhone"
+                    name="sitePhone"
+                    value="+966 50 000 0000"
+                  />
+                  <label for="sitePhone">رقم الهاتف</label>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  حفظ الإعدادات
+                </button>
+              </form>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Add/Edit User Modal -->
+    <div class="modal" id="userModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="userModalTitle">إضافة مستخدم</h3>
+          <button class="close-modal" onclick="closeModal('userModal')">
+            &times;
+          </button>
+        </div>
+        <form id="userForm">
+          <div class="form-group">
+            <input type="text" id="userName" name="userName" required />
+            <label for="userName">الاسم الكامل</label>
+          </div>
+          <div class="form-group">
+            <input type="email" id="userEmail" name="userEmail" required />
+            <label for="userEmail">البريد الإلكتروني</label>
+          </div>
+          <div class="form-group">
+            <input type="tel" id="userPhone" name="userPhone" required />
+            <label for="userPhone">رقم الجوال</label>
+          </div>
+          <div class="form-group">
+            <input
+              type="password"
+              id="userPassword"
+              name="userPassword"
+              required
+            />
+            <label for="userPassword">كلمة المرور</label>
+          </div>
+          <div class="form-group">
+            <label for="userRole">الدور</label>
+            <select id="userRole" name="userRole" required>
+              <option value="user">مستخدم</option>
+              <option value="admin">مدير</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="userStatus">الحالة</label>
+            <select id="userStatus" name="userStatus" required>
+              <option value="active">نشط</option>
+              <option value="inactive">غير نشط</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">حفظ</button>
+          <button
+            type="button"
+            class="btn btn-outline"
+            onclick="closeModal('userModal')"
+          >
+            إلغاء
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Add/Edit Product Modal -->
+    <div class="modal" id="productModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="productModalTitle">إضافة منتج</h3>
+          <button class="close-modal" onclick="closeModal('productModal')">
+            &times;
+          </button>
+        </div>
+        <form id="productForm">
+          <div class="form-group">
+            <input type="text" id="productName" name="productName" required />
+            <label for="productName">اسم المنتج</label>
+          </div>
+          <div class="form-group">
+            <select id="productCategory" name="productCategory" required>
+              <label for="productCategory">الفئة</label>
+              <option value="food">المواد الغذائية</option>
+              <option value="clothes">الملابس</option>
+              <option value="shoes">الأحذية</option>
+              <option value="home">الأدوات المنزلية</option>
+              <option value="perfume">العطور</option>
+              <option value="gifts">الهدايا</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <input
+                type="number"
+                id="productPrice"
+                name="productPrice"
+                required
+              />
+              <label for="productPrice">السعر</label>
+            </div>
+            <div class="form-group">
+              <input
+                type="number"
+                id="productOldPrice"
+                name="productOldPrice"
+              />
+              <label for="productOldPrice">السعر القديم</label>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <input
+                type="number"
+                step="0.1"
+                min="0"
+                max="5"
+                id="productRating"
+                name="productRating"
+                required
+              />
+              <label for="productRating">التقييم</label>
+            </div>
+            <div class="form-group">
+              <input
+                type="number"
+                id="productReviews"
+                name="productReviews"
+                required
+              />
+              <label for="productReviews">عدد التقييمات</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              id="productIcon"
+              name="productIcon"
+              placeholder="مثال: fas fa-box"
+              required
+            />
+            <label for="productIcon">الأيقونة</label>
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              id="productBadge"
+              name="productBadge"
+              placeholder="مثال: خصم 25%"
+            />
+            <label for="productBadge">الشارة</label>
+          </div>
+          <div class="form-group">
+            <textarea
+              id="productDescription"
+              name="productDescription"
+              rows="3"
+              required
+            ></textarea>
+            <label for="productDescription">الوصف</label>
+          </div>
+          <button type="submit" class="btn btn-primary">حفظ</button>
+          <button
+            type="button"
+            class="btn btn-outline"
+            onclick="closeModal('productModal')"
+          >
+            إلغاء
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Add/Edit Offer Modal -->
+    <div class="modal" id="offerModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="offerModalTitle">إضافة عرض</h3>
+          <button class="close-modal" onclick="closeModal('offerModal')">
+            &times;
+          </button>
+        </div>
+        <form id="offerForm">
+          <div class="form-group">
+            <input type="text" id="offerTitle" name="offerTitle" required />
+            <label for="offerTitle">عنوان العرض</label>
+          </div>
+          <div class="form-group">
+            <input
+              type="number"
+              id="offerDiscount"
+              name="offerDiscount"
+              min="1"
+              max="90"
+              required
+            />
+            <label for="offerDiscount">نسبة الخصم (%)</label>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <input
+                type="date"
+                id="offerStartDate"
+                name="offerStartDate"
+                required
+              />
+              <label for="offerStartDate">تاريخ البداية</label>
+            </div>
+            <div class="form-group">
+              <input
+                type="date"
+                id="offerEndDate"
+                name="offerEndDate"
+                required
+              />
+              <label for="offerEndDate">تاريخ النهاية</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <textarea
+              id="offerDescription"
+              name="offerDescription"
+              rows="3"
+              required
+            ></textarea>
+            <label for="offerDescription">الوصف</label>
+          </div>
+          <button type="submit" class="btn btn-primary">حفظ</button>
+          <button
+            type="button"
+            class="btn btn-outline"
+            onclick="showSection('dashboard', event)"
+
+          >
+            إلغاء
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+      /**
+       * ================= PROFESSIONAL DARK MODE MANAGER =================
+       * نظام متكامل لإدارة الوضع الليلي مع دعم تفضيلات النظام والتحسينات
+       * Version: 2.0.0
+       */
+
+      class DarkModeManager {
+        constructor() {
+          this.storageKey = "adminDarkMode";
+          this.darkModeToggle = document.getElementById("darkModeToggle");
+          this.body = document.body;
+          this.iconSun = '<i class="fas fa-sun" aria-hidden="true"></i>';
+          this.iconMoon = '<i class="fas fa-moon" aria-hidden="true"></i>';
+          this.isDarkMode = null;
+          this.init();
+        }
+
+        /**
+         * تهيئة المدير
+         */
+        init() {
+          // تأكد من وجود عنصر التبديل
+          if (!this.darkModeToggle) {
+            console.warn("زر الوضع الليلي غير موجود في الصفحة");
+            return;
+          }
+
+          // تهيئة الوضع الأولي
+          this.setupInitialMode();
+
+          // إضافة حدث النقر
+          this.setupEventListeners();
+
+          // مراقبة تغييرات النظام
+          this.setupSystemPreferences();
+
+          // إضافة تأثيرات انتقالية سلسة
+          this.setupTransitions();
+        }
+
+        /**
+         * إعداد الوضع الأولي
+         */
+        setupInitialMode() {
+          // التحقق من التفضيل المحفوظ
+          const savedMode = localStorage.getItem(this.storageKey);
+
+          if (savedMode !== null) {
+            // استخدم التفضيل المحفوظ
+            this.isDarkMode = savedMode === "true";
+          } else {
+            // استخدم تفضيل النظام إذا لم يكن هناك تفضيل محفوظ
+            this.isDarkMode = window.matchMedia(
+              "(prefers-color-scheme: dark)",
+            ).matches;
+          }
+
+          // تطبيق الوضع
+          this.applyMode();
+        }
+
+        /**
+         * تطبيق الوضع الحالي على الصفحة
+         */
+        applyMode() {
+          if (this.isDarkMode) {
+            this.body.classList.add("dark-mode");
+            this.darkModeToggle.innerHTML = this.iconSun;
+            this.darkModeToggle.setAttribute("aria-label", "الوضع النهاري");
+            this.darkModeToggle.title = "التبديل إلى الوضع النهاري";
+            this.darkModeToggle.setAttribute("data-mode", "dark");
+          } else {
+            this.body.classList.remove("dark-mode");
+            this.darkModeToggle.innerHTML = this.iconMoon;
+            this.darkModeToggle.setAttribute("aria-label", "الوضع الليلي");
+            this.darkModeToggle.title = "التبديل إلى الوضع الليلي";
+            this.darkModeToggle.setAttribute("data-mode", "light");
+          }
+
+          // حفظ التفضيل
+          this.savePreference();
+
+          // إرسال حدث مخصص للاستخدام في أجزاء أخرى من التطبيق
+          this.dispatchModeChangeEvent();
+        }
+
+        /**
+         * تبديل الوضع
+         */
+        toggle() {
+          this.isDarkMode = !this.isDarkMode;
+
+          // إضافة فئة انتقال مؤقتة
+          this.body.classList.add("mode-transitioning");
+
+          // تطبيق الوضع بعد تأخير بسيط للانتقال السلس
+          setTimeout(() => {
+            this.applyMode();
+            this.body.classList.remove("mode-transitioning");
+          }, 50);
+
+          // تسجيل النشاط (لأغراض التحليل)
+          this.logActivity();
+        }
+
+        /**
+         * إعداد مستمعي الأحداث
+         */
+        setupEventListeners() {
+          // حدث النقر الرئيسي
+          this.darkModeToggle.addEventListener("click", (e) => {
+            e.preventDefault();
+            this.toggle();
+          });
+
+          // دعم مفاتيح لوحة المفاتيح (Space و Enter)
+          this.darkModeToggle.addEventListener("keydown", (e) => {
+            if (e.key === " " || e.key === "Enter") {
+              e.preventDefault();
+              this.toggle();
+            }
+          });
+
+          // حدث تغيير النافذة (للتحديث عند التبويب)
+          window.addEventListener("storage", (e) => {
+            if (e.key === this.storageKey) {
+              this.handleStorageChange(e.newValue);
+            }
+          });
+        }
+
+        /**
+         * إعداد تفضيلات النظام
+         */
+        setupSystemPreferences() {
+          const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+          // استمع لتغيرات النظام
+          mediaQuery.addEventListener("change", (e) => {
+            // تحديث فقط إذا لم يكن هناك تفضيل محفوظ من المستخدم
+            if (localStorage.getItem(this.storageKey) === null) {
+              this.isDarkMode = e.matches;
+              this.applyMode();
+            }
+          });
+        }
+
+        /**
+         * إعداد انتقالات سلسة
+         */
+        setupTransitions() {
+          // إضافة فئات CSS للانتقالات
+          const style = document.createElement("style");
+          style.textContent = `
+            .mode-transitioning * {
+                transition-duration: 0.2s !important;
+            }
+            
+            .dark-mode-toggle {
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .dark-mode-toggle::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 0;
+                height: 0;
+                background: rgba(0, 0, 0, 0.1);
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                transition: width 0.3s, height 0.3s;
+            }
+            
+            .dark-mode-toggle:active::after {
+                width: 100px;
+                height: 100px;
+            }
+            
+            body.dark-mode .dark-mode-toggle::after {
+                background: rgba(255, 255, 255, 0.1);
+            }
+        `;
+          document.head.appendChild(style);
+
+          // إضافة فئة للزر
+          this.darkModeToggle.classList.add("dark-mode-toggle");
+        }
+
+        /**
+         * حفظ التفضيل
+         */
+        savePreference() {
+          try {
+            localStorage.setItem(this.storageKey, this.isDarkMode);
+          } catch (error) {
+            console.warn("تعذر حفظ تفضيل الوضع الليلي:", error);
+            // استخدام بديل إذا كان localStorage غير متاح
+            this.useFallbackStorage();
+          }
+        }
+
+        /**
+         * استخدام تخزين بديل
+         */
+        useFallbackStorage() {
+          // يمكن استخدام document.cookie كبديل
+          document.cookie = `${this.storageKey}=${this.isDarkMode}; path=/; max-age=${60 * 60 * 24 * 365}`;
+        }
+
+        /**
+         * معالجة تغييرات التخزين
+         */
+        handleStorageChange(newValue) {
+          if (newValue !== null) {
+            this.isDarkMode = newValue === "true";
+            this.applyMode();
+          }
+        }
+
+        /**
+         * إرسال حدث تغيير الوضع
+         */
+        dispatchModeChangeEvent() {
+          const event = new CustomEvent("darkModeChange", {
+            detail: {
+              isDarkMode: this.isDarkMode,
+              timestamp: new Date().toISOString(),
+            },
+          });
+
+          window.dispatchEvent(event);
+        }
+
+        /**
+         * تسجيل نشاط التبديل
+         */
+        logActivity() {
+          // يمكن إرسال هذه البيانات لتحليلات الاستخدام
+          const data = {
+            action: "dark_mode_toggle",
+            new_mode: this.isDarkMode ? "dark" : "light",
+            timestamp: Date.now(),
+            user_agent: navigator.userAgent,
+            prefers_dark_system: window.matchMedia(
+              "(prefers-color-scheme: dark)",
+            ).matches,
+          };
+
+          // console.log('Dark Mode Activity:', data);
+
+          // يمكن إرسال البيانات لخادم هنا إذا لزم الأمر
+          // this.sendAnalytics(data);
+        }
+
+        /**
+         * إرسال تحليلات (اختياري)
+         */
+        sendAnalytics(data) {
+          // تنفيذ إرسال البيانات التحليلية
+          // مثال: fetch('/api/analytics', { method: 'POST', body: JSON.stringify(data) });
+        }
+
+        /**
+         * الحصول على الوضع الحالي
+         */
+        getCurrentMode() {
+          return this.isDarkMode ? "dark" : "light";
+        }
+
+        /**
+         * تعيين وضع معين
+         * @param {string} mode - 'dark' أو 'light'
+         */
+        setMode(mode) {
+          if (mode === "dark" || mode === "light") {
+            this.isDarkMode = mode === "dark";
+            this.applyMode();
+            return true;
+          }
+          return false;
+        }
+
+        /**
+         * إعادة التعيين لتفضيل النظام
+         */
+        resetToSystem() {
+          localStorage.removeItem(this.storageKey);
+          this.isDarkMode = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+          ).matches;
+          this.applyMode();
+        }
+      }
+
+      // ================= التهيئة التلقائية =================
+
+      // تهيئة عند تحميل DOM
+      document.addEventListener("DOMContentLoaded", () => {
+        // إنشاء نسخة من المدير
+        window.darkModeManager = new DarkModeManager();
+
+        // إضافة واجهة للتحكم من الكونسول (لأغراض التطوير)
+        if (typeof console !== "undefined") {
+          console.info("Dark Mode Manager initialized");
+          console.log("Control dark mode with: window.darkModeManager");
+          console.log(
+            'Methods: .toggle(), .setMode("dark"/"light"), .resetToSystem(), .getCurrentMode()',
+          );
+        }
+      });
+
+      // ================= استدعاءات من أجزاء أخرى في التطبيق =================
+
+      /**
+       * مثال على استخدام المدير من أي جزء في الكود:
+       *
+       * 1. تبديل الوضع يدوياً:
+       *    window.darkModeManager.toggle();
+       *
+       * 2. تعيين وضع محدد:
+       *    window.darkModeManager.setMode('dark');
+       *
+       * 3. الاستماع لتغيرات الوضع:
+       *    window.addEventListener('darkModeChange', (e) => {
+       *        console.log('Dark mode changed to:', e.detail.isDarkMode);
+       *    });
+       *
+       * 4. إعادة التعيين لتفضيل النظام:
+       *    window.darkModeManager.resetToSystem();
+       */
+
+      // ================= دعم لصفحات متعددة =================
+
+      // التحقق من وجود إعدادات الوضع الليلي عبر التبويبات
+      function syncDarkModeAcrossTabs() {
+        window.addEventListener("storage", (e) => {
+          if (e.key === "adminDarkMode" && window.darkModeManager) {
+            window.darkModeManager.handleStorageChange(e.newValue);
+          }
+        });
+      }
+
+      // تفعيل المزامنة
+      syncDarkModeAcrossTabs();
+    </script>
+        <script src="admin.js"></script>
+    <script src="app-safe.js"></script>
+        <script src="script.js"></script>
+
+
+  </body>
+</html>

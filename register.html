@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>إنشاء حساب | مجمع الشامل</title>
+    <meta name="description" content="إنشاء حساب جديد في مجمع الشامل" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Auth Page Styles */
+      .auth-page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--info-color)
+        );
+        padding: 20px;
+      }
+
+      .auth-container {
+        background-color: var(--card-bg);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-lg);
+        width: 100%;
+        max-width: 500px;
+        padding: 40px;
+        transition: var(--transition);
+      }
+
+      body.dark-mode .auth-container {
+        background-color: var(--card-bg-dark);
+      }
+
+      .auth-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .auth-header .logo {
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .auth-header h2 {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--text-color);
+        margin-bottom: 10px;
+      }
+
+      .auth-header p {
+        color: var(--secondary-color);
+      }
+
+      .auth-form {
+        margin-bottom: 30px;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      .form-group {
+        position: relative;
+        margin-bottom: 25px;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 15px 45px 15px 15px;
+        background-color: var(--bg-color);
+        border: 2px solid var(--border-color);
+        border-radius: var(--border-radius-sm);
+        font-size: 1rem;
+        font-family: var(--font-family);
+        transition: var(--transition);
+      }
+
+      body.dark-mode .form-group input {
+        background-color: var(--card-bg-dark);
+        border-color: var(--border-dark);
+        color: var(--text-dark);
+      }
+
+      .form-group input:focus {
+        border-color: var(--primary-color);
+        outline: none;
+      }
+
+      .form-group label {
+        position: absolute;
+        right: 45px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--secondary-color);
+        transition: var(--transition);
+        pointer-events: none;
+        background-color: var(--card-bg);
+        padding: 0 5px;
+      }
+
+      body.dark-mode .form-group label {
+        background-color: var(--card-bg-dark);
+        color: var(--text-dark);
+      }
+
+      .form-group input:focus ~ label,
+      .form-group input:not(:placeholder-shown) ~ label {
+        top: -10px;
+        font-size: 0.85rem;
+        color: var(--primary-color);
+      }
+
+      .input-icon {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--secondary-color);
+        font-size: 1.1rem;
+      }
+
+      .form-group input:focus ~ .input-icon {
+        color: var(--primary-color);
+      }
+
+      .password-toggle {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--secondary-color);
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .password-toggle:hover {
+        color: var(--primary-color);
+      }
+
+      .terms-checkbox {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 25px;
+      }
+
+      .terms-checkbox input[type="checkbox"] {
+        width: auto;
+        margin-top: 5px;
+      }
+
+      .terms-checkbox label {
+        position: static;
+        transform: none;
+        font-size: 0.9rem;
+        color: var(--text-color);
+        background: none;
+        padding: 0;
+        line-height: 1.5;
+      }
+
+      .terms-checkbox a {
+        color: var(--primary-color);
+        font-weight: 600;
+      }
+
+      .auth-divider {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin: 30px 0;
+      }
+
+      .auth-divider::before,
+      .auth-divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background-color: var(--border-color);
+      }
+
+      .auth-divider span {
+        color: var(--secondary-color);
+        font-size: 0.9rem;
+      }
+
+      .social-login {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+
+      .social-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 12px;
+        border: 2px solid var(--border-color);
+        border-radius: var(--border-radius-sm);
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      body.dark-mode .social-btn {
+        background-color: var(--card-bg-dark);
+        border-color: var(--border-dark);
+      }
+
+      .social-btn:hover {
+        border-color: var(--primary-color);
+        transform: translateY(-2px);
+      }
+
+      .social-btn.google {
+        border-color: #db4437;
+        color: #db4437;
+      }
+
+      .social-btn.facebook {
+        border-color: #1877f2;
+        color: #1877f2;
+      }
+
+      .auth-footer {
+        text-align: center;
+        padding-top: 25px;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .auth-footer p {
+        color: var(--secondary-color);
+        margin-bottom: 10px;
+      }
+
+      .auth-footer a {
+        color: var(--primary-color);
+        font-weight: 600;
+        transition: var(--transition);
+      }
+
+      .auth-footer a:hover {
+        color: var(--primary-dark);
+      }
+
+      .auth-form .btn {
+        width: 100%;
+        padding: 15px;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      .auth-form .btn i {
+        margin-left: 8px;
+      }
+
+      /* Responsive */
+      @media (max-width: 576px) {
+        .auth-container {
+          padding: 30px 20px;
+        }
+
+        .auth-header h2 {
+          font-size: 1.5rem;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+
+        .social-login {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Animations */
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .auth-container {
+        animation: slideIn 0.5s ease;
+      }
+    </style>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+  </head>
+  <body>
+    <!-- ================= LOADER ================= -->
+    <div class="loader" id="loader">
+      <div class="spinner"></div>
+      <p>جاري التحميل...</p>
+    </div>
+
+    <!-- ================= AUTH PAGE ================= -->
+    <div class="auth-page">
+      <div class="auth-container">
+        <!-- Auth Header -->
+        <div class="auth-header">
+          <div class="logo">
+            <div class="logo-icon">
+              <img src="logo.png" alt="Shopping Bag" class="icon-img" />
+            </div>
+            <h3>
+              أسواق شركة مجمع <br />
+              <span>الشامل</span>
+            </h3>
+          </div>
+          <h2>إنشاء حساب جديد</h2>
+          <p>انضم إلينا اليوم واستمتع بتجربة تسوق مميزة</p>
+        </div>
+
+        <!-- Register Form -->
+        <form class="auth-form" id="registerForm">
+          <div class="form-row">
+            <div class="form-group">
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                required
+                placeholder=" "
+              />
+              <label for="firstName">الاسم الأول</label>
+              <i class="fas fa-user input-icon"></i>
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                required
+                placeholder=" "
+              />
+              <label for="lastName">الاسم الأخير</label>
+              <i class="fas fa-user input-icon"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder=" "
+            />
+            <label for="email">البريد الإلكتروني</label>
+            <i class="fas fa-envelope input-icon"></i>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              required
+              placeholder=" "
+            />
+            <label for="phone">رقم الجوال</label>
+            <i class="fas fa-phone input-icon"></i>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              placeholder=" "
+            />
+            <label for="password">كلمة المرور</label>
+            <i class="fas fa-lock input-icon"></i>
+            <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              required
+              placeholder=" "
+            />
+            <label for="confirmPassword">تأكيد كلمة المرور</label>
+            <i class="fas fa-lock input-icon"></i>
+            <i
+              class="fas fa-eye password-toggle"
+              id="confirmPasswordToggle"
+            ></i>
+          </div>
+
+          <div class="terms-checkbox">
+            <input type="checkbox" id="terms" name="terms" required />
+            <label for="terms">
+              أوافق على
+              <a href="#" target="_blank">الشروط والأحكام</a>
+              و
+              <a href="#" target="_blank">سياسة الخصوصية</a>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-user-plus"></i>
+            إنشاء حساب
+          </button>
+        </form>
+
+        <!-- Social Login -->
+        <div class="auth-divider">
+          <span>أو</span>
+        </div>
+
+        <!-- Google Register / Login -->
+        <div
+          id="g_id_onload"
+          data-client_id="601681109701-06u2fef3b71i60fm5apafbeth1l9tjm7.apps.googleusercontent.com"
+          data-callback="handleGoogleRegister"
+          data-auto_prompt="false"
+        ></div>
+
+        <div
+          class="g_id_signin"
+          data-type="standard"
+          data-shape="rectangular"
+          data-theme="outline"
+          data-text="signup_with"
+          data-size="large"
+          data-logo_alignment="left"
+        ></div>
+
+        <!-- Auth Footer -->
+        <div class="auth-footer">
+          <p>لديك حساب بالفعل؟</p>
+          <a href="login.html">تسجيل الدخول</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= JS ================= -->
+    <script>
+      // Hide loader
+      setTimeout(() => {
+        document.getElementById("loader").classList.add("hidden");
+      }, 1000);
+
+      // Password toggles
+      const passwordToggle = document.getElementById("passwordToggle");
+      const confirmPasswordToggle = document.getElementById(
+        "confirmPasswordToggle",
+      );
+      const passwordInput = document.getElementById("password");
+      const confirmPasswordInput = document.getElementById("confirmPassword");
+
+      passwordToggle.addEventListener("click", () => {
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          passwordToggle.classList.remove("fa-eye");
+          passwordToggle.classList.add("fa-eye-slash");
+        } else {
+          passwordInput.type = "password";
+          passwordToggle.classList.remove("fa-eye-slash");
+          passwordToggle.classList.add("fa-eye");
+        }
+      });
+
+      confirmPasswordToggle.addEventListener("click", () => {
+        if (confirmPasswordInput.type === "password") {
+          confirmPasswordInput.type = "text";
+          confirmPasswordToggle.classList.remove("fa-eye");
+          confirmPasswordToggle.classList.add("fa-eye-slash");
+        } else {
+          confirmPasswordInput.type = "password";
+          confirmPasswordToggle.classList.remove("fa-eye-slash");
+          confirmPasswordToggle.classList.add("fa-eye");
+        }
+      });
+
+      // Register form submit
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          const firstName = document.getElementById("firstName").value;
+          const lastName = document.getElementById("lastName").value;
+          const email = document.getElementById("email").value;
+          const phone = document.getElementById("phone").value;
+          const password = document.getElementById("password").value;
+          const confirmPassword =
+            document.getElementById("confirmPassword").value;
+          const terms = document.getElementById("terms").checked;
+
+          // Validation
+          if (password !== confirmPassword) {
+            showNotification("كلمات المرور غير متطابقة!", "error");
+            return;
+          }
+
+          if (!terms) {
+            showNotification("يجب الموافقة على الشروط والأحكام!", "error");
+            return;
+          }
+
+          // Simulate registration
+          showNotification("جاري إنشاء الحساب...", "info");
+
+          setTimeout(() => {
+            // Save user data
+            const userData = {
+              firstName: firstName,
+              lastName: lastName,
+              email: email,
+              phone: phone,
+              fullName: `${firstName} ${lastName}`,
+            };
+
+            localStorage.setItem("user", JSON.stringify(userData));
+            showNotification("تم إنشاء الحساب بنجاح!", "success");
+
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+          }, 1500);
+        });
+
+      // Social register
+      function socialRegister(provider) {
+        showNotification(`جاري إنشاء حساب باستخدام ${provider}...`, "info");
+
+        setTimeout(() => {
+          const userData = {
+            firstName: "مستخدم",
+            lastName: provider,
+            email: `user@${provider}.com`,
+            phone: "+966 50 000 0000",
+            fullName: `مستخدم ${provider}`,
+          };
+
+          localStorage.setItem("user", JSON.stringify(userData));
+          showNotification("تم إنشاء الحساب بنجاح!", "success");
+
+          // setTimeout(() => {
+          //     window.location.href = 'index.html';
+          // }, 1500);
+        }, 1500);
+      }
+
+      // Show notification function
+      function showNotification(message, type = "info") {
+        const notification = document.createElement("div");
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `
+                <i class="fas ${type === "success" ? "fa-check-circle" : type === "error" ? "fa-times-circle" : "fa-info-circle"}"></i>
+                <span>${message}</span>
+                <button class="close-notification">&times;</button>
+            `;
+
+        document.body.appendChild(notification);
+
+        // Styles
+        const bgColor =
+          type === "success"
+            ? "#198754"
+            : type === "error"
+              ? "#dc3545"
+              : "#0d6efd";
+        notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%) translateY(-100px);
+                background-color: ${bgColor};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                min-width: 300px;
+                transition: transform 0.3s ease;
+            `;
+
+        const closeBtn = notification.querySelector(".close-notification");
+        closeBtn.style.cssText = `
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                margin-right: auto;
+            `;
+
+        // Show
+        setTimeout(() => {
+          notification.style.transform = "translateX(-50%) translateY(0)";
+        }, 100);
+
+        // Close on click
+        closeBtn.addEventListener("click", () => {
+          notification.style.transform = "translateX(-50%) translateY(-100px)";
+          setTimeout(() => notification.remove(), 300);
+        });
+
+        // Auto close
+        setTimeout(() => {
+          notification.style.transform = "translateX(-50%) translateY(-100px)";
+          setTimeout(() => notification.remove(), 300);
+        }, 3000);
+      }
+
+      // Check if user is already logged in
+      // if (localStorage.getItem('user')) {
+      //     window.location.href = 'index.html';
+      // }
+    </script>
+    <script src="script.js"></script>
+
+    <script src="app-safe.js"></script>
+  </body>
+</html>
