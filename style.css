@@ -1793,5 +1793,70 @@ body.dark-mode .about-stats {
     opacity: 1;
   }
 }
+/* ================= تنسيق قسم تواصل معنا مشابه لتسوق حسب الفئة ================= */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.contact-item {
+  background: linear-gradient(135deg, #fff7e6, #fff);
+  border-radius: 15px;
+  padding: 25px 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.contact-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(201, 161, 74, 0.25);
+}
+
+.contact-item .contact-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8a4116, #0dcaf0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-item:hover .contact-icon {
+  transform: scale(1.1);
+  box-shadow: 0 10px 25px rgba(138, 65, 22, 0.4);
+}
+
+.contact-item .contact-text h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.contact-item .contact-text p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* select الفروع */
+.contact-item .branches-select {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* صندوق الفرع */
+.branch-box {
+  margin-top: 10px;
+  text-align: center;
+}
 
 
