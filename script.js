@@ -820,17 +820,52 @@ window.shamelMarket = {
   showNotification,
 };
 document.addEventListener("DOMContentLoaded", () => {
+  const checkoutBtn1 = document.getElementById("checkoutBtn1");
+   // زر الدفع داخل السلة
   const checkoutBtn = document.getElementById("checkoutBtn");
-   const checkoutBtn1 = document.getElementById("checkoutBtn1");
-  const modal = document.getElementById("checkoutModal");
-  const confirmBtn = document.getElementById("confirmCheckout");
+
+  const modal = document.getElementById("checkoutModal");       // المودال
+  const closeModalBtn = document.getElementById("closeModal");  // زر "تمـام" في المودال
 
   // عند الضغط على زر الدفع
-  if (checkoutBtn) {
-    checkoutBtn.addEventListener("click", () => {
-      modal.classList.add("show");
+  if (checkoutBtn1) {
+    checkoutBtn1.addEventListener("click", () => {
+      modal.style.display = "flex"; // عرض المودال
     });
   }
+ if (checkoutBtn) {
+    checkoutBtn.addEventListener("click", () => {
+      modal.style.display = "flex"; // عرض المودال
+    });
+  }
+  // عند الضغط على "تمـام"
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener("click", () => {
+      modal.style.display = "none"; // إخفاء المودال
+    });
+  }
+  
+
+  // إغلاق المودال عند الضغط خارج محتوى المودال
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+
+  // زر الإغلاق للسلة
+  const closeCartBtn = document.getElementById("closeCart");
+  const cartSidebar = document.getElementById("cartSidebar");
+  const overlay = document.getElementById("overlay");
+
+  if (closeCartBtn) {
+    closeCartBtn.addEventListener("click", () => {
+      cartSidebar.style.display = "none";
+      overlay.classList.remove("active");
+    });
+  }
+});
+
 
   // عند الضغط على "تمام"
   if (confirmBtn) {
@@ -843,6 +878,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 200);
     });
   }
-});
+
+
 
 

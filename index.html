@@ -218,12 +218,12 @@
         font-size: 17px;
         font-weight: 700;
         margin-bottom: 8px;
-        color: #333;
+        color: #969494;
       }
 
       .contact-item .contact-text p {
         font-size: 15px;
-        color: #555;
+        color: #e9e3e3;
         margin-bottom: 10px;
       }
 
@@ -369,6 +369,9 @@
 
       .footer-brand h2 span {
         color: #fffdfa; /* يمكنك إبقاء اللون كما هو */
+      }
+      #cartCount {
+        display: none;
       }
     </style>
   </head>
@@ -921,7 +924,7 @@
               </div>
               <div class="contact-text">
                 <h3>الهاتف</h3>
-                <span dir="ltr">+966 50-326-1911</span>
+                <span dir="ltr" style="color: #e9e3e3">+966 50-326-1911</span>
               </div>
             </div>
 
@@ -954,6 +957,20 @@
             </a>
 
             <!-- العناوين -->
+
+            <!-- ساعات العمل -->
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="contact-text">
+                <h3>ساعات العمل</h3>
+                <p>
+                  من 9 ص إلى 12 م – طوال أيام الأسبوع<br />
+                  ما عدا الجمعة من 2 ظهراً
+                </p>
+              </div>
+            </div>
             <div class="contact-item address">
               <div class="contact-icon">
                 <i class="fas fa-map-signs"></i>
@@ -986,20 +1003,6 @@
                     فتح الموقع على الخريطة
                   </a>
                 </div>
-              </div>
-            </div>
-
-            <!-- ساعات العمل -->
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-clock"></i>
-              </div>
-              <div class="contact-text">
-                <h3>ساعات العمل</h3>
-                <p>
-                  من 9 ص إلى 12 م – طوال أيام الأسبوع<br />
-                  ما عدا الجمعة من 2 ظهراً
-                </p>
               </div>
             </div>
           </div>
@@ -1075,7 +1078,7 @@
         </div>
 
         <div class="footer-bottom">
-          <p>&copy; 2026 مجمع الشامل. جميع الحقوق محفوظة |</p>
+          <p>2026 شركة أسواق مجمع الشامل – جميع الحقوق محفوظة &copy;</p>
         </div>
       </div>
     </footer>
@@ -1089,11 +1092,12 @@
       >
         <div class="cart-header">
           <h3><i class="fas fa-shopping-cart"></i> سلة التسوق</h3>
+      </a>
           <button class="close-cart" id="closeCart">
             <i class="fas fa-times"></i>
           </button>
         </div>
-      </a>
+      
       <div class="cart-items" id="cartItems">
         <!-- سيتم ملؤها من JavaScript -->
       </div>

@@ -438,8 +438,14 @@
 
       /* Empty Cart */
       .empty-cart-section {
+        min-height: 50vh; /* أو 100vh لو تبغاه في منتصف الصفحة بالكامل */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* عمودي */
+        align-items: center; /* أفقي */
         text-align: center;
-        padding: 80px 20px;
+        padding: 20px;
+        transform: translateX(-180px);
       }
 
       .empty-cart-section i {
@@ -719,6 +725,41 @@
           opacity: 1;
         }
       }
+      /* ================= CSS المودال ================= */
+      .modal {
+        display: none; /* يظهر فقط عند تفعيل الجافاسكربت */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* خلفية نصف شفافة */
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      .modal-content {
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .modal-content h3 {
+        margin: 15px 0 10px;
+      }
+
+      .modal-content p {
+        margin-bottom: 20px;
+      }
+
+      #closeModal {
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -733,7 +774,12 @@
       <div class="container">
         <div class="logo">
           <div class="logo-icon">
-            <img src="logo.png" alt="Shopping Bag" class="icon-img" />
+            <img
+              src="logo.png"
+              alt="Shopping Bag"
+              onclick="window.location.href = 'index.html'"
+              class="icon-img"
+            />
           </div>
           <h3>
             أسواق شركة مجمع <br />
@@ -889,6 +935,15 @@
     </button>
 
     <!-- ================= JS ================= -->
+    <!-- ================= MODAL تنبيه الدفع ================= -->
+    <div class="modal" id="checkoutModal">
+      <div class="modal-content">
+        <i class="fas fa-store modal-icon"></i>
+        <h3>تنبيه</h3>
+        <p>غير مسموح الدفع عبر الموقع<br />يرجى زيارة أحد فروعنا</p>
+        <button class="btn btn-primary" id="closeModal">تمـام</button>
+      </div>
+    </div>
 
     <script>
       // Cart data
@@ -1074,7 +1129,7 @@
                <i class="fas fa-credit-card"></i> إتمام الدفع
               </button>
 
-<!-- نافذة التنبيه (Modal) -->
+             <!-- نافذة التنبيه (Modal) -->
               <div class="modal" id="checkoutModal">
               <div class="modal-content">
               <i class="fas fa-store modal-icon"></i>
@@ -1452,6 +1507,7 @@
           checkoutModal.style.display = "none";
         }
       });
+      
     </script>
     <script src="script.js"></script>
     <script src="app-safe.js"></script>
