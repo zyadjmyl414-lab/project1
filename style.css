@@ -10,12 +10,12 @@
   --light-color: #f8f9fa;
   --dark-color: #212529;
   --white: #ffffff;
-  --black: #000000;
+
 
   --bg-color: #f5f5f5;
   --bg-dark: #121212;
   --text-color: #333333;
-  --text-color2: #f5f5f5;
+
 
   --text-dark: #eeeeee;
   --card-bg: #ffffff;
@@ -1947,4 +1947,114 @@ body.dark-mode .about-stats {
 
 .footer-brand h2 span {
   color: #fffdfa; /* يمكنك إبقاء اللون كما هو */
+}
+/* ==========================================
+دعم اللغتين RTL & LTR
+========================================== */
+
+/* تعريفات عامة */
+html[dir="ltr"] {
+  text-align: left;
+}
+
+html[dir="rtl"] {
+  text-align: right;
+}
+
+/* Header Actions - Language Toggle */
+#langToggle {
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+/* LTR Specific Adjustments */
+html[dir="ltr"] .header-actions {
+  flex-direction: row-reverse;
+}
+
+html[dir="ltr"] .nav-menu {
+  flex-direction: row-reverse;
+}
+
+html[dir="ltr"] .logo {
+  flex-direction: row-reverse;
+}
+
+html[dir="ltr"] .contact-item,
+html[dir="ltr"] .stat-item,
+html[dir="ltr"] .footer-content,
+html[dir="ltr"] .about-content,
+html[dir="ltr"] .cart-item {
+  flex-direction: row-reverse;
+}
+
+html[dir="ltr"] .input-icon {
+  right: auto;
+  left: 15px;
+}
+
+html[dir="ltr"] .form-group input,
+html[dir="ltr"] .form-group textarea {
+  padding-right: 15px;
+  padding-left: 50px;
+}
+
+html[dir="ltr"] .contact-form input,
+html[dir="ltr"] .contact-form textarea {
+  text-align: left;
+}
+
+/* Table adjustments for LTR */
+html[dir="ltr"] table {
+  text-align: left;
+}
+
+html[dir="ltr"] th,
+html[dir="ltr"] td {
+  text-align: left;
+}
+
+/* Sidebar adjustments for Admin (LTR) */
+html[dir="ltr"] .admin-sidebar {
+  right: auto;
+  left: 0;
+}
+
+html[dir="ltr"] .admin-main {
+  margin-right: 0;
+  margin-left: 280px;
+}
+
+html[dir="ltr"] .sidebar-item {
+  border-right: none;
+  border-left: 3px solid transparent;
+  flex-direction: row-reverse;
+}
+
+html[dir="ltr"] .sidebar-item:hover,
+html[dir="ltr"] .sidebar-item.active {
+  border-right-color: transparent;
+  border-left-color: var(--primary-color);
+}
+
+/* Mobile Menu */
+@media (max-width: 768px) {
+  html[dir="ltr"] .admin-sidebar {
+    transform: translateX(-100%);
+    right: auto;
+    left: 0;
+  }
+  
+  html[dir="ltr"] .admin-sidebar.show {
+    transform: translateX(0);
+  }
+  
+  html[dir="ltr"] .admin-main {
+    margin-left: 0;
+  }
 }

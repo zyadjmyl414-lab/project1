@@ -498,16 +498,99 @@
         color: var(--text-dark);
       }
       @media (prefers-reduced-motion: reduce) {
-    body * {
-        transition: none !important;
-    }
-}
-@media screen and (min-width: 768px) {
-    .dark-mode-toggle:hover {
-        transform: scale(1.1);
-    }
-}
+        body * {
+          transition: none !important;
+        }
+      }
+      @media screen and (min-width: 768px) {
+        .dark-mode-toggle:hover {
+          transform: scale(1.1);
+        }
+      }
+      /* ==========================================
+دعم الاتجاهين RTL و LTR
+========================================== */
 
+      /* تعريفات للاتجاه الأيسر (English) */
+      html[dir="ltr"] {
+        /* عكس الهوامش للسايدبار */
+        --sidebar-direction: left;
+      }
+
+      html[dir="rtl"] {
+        --sidebar-direction: right;
+      }
+
+      /* تعديلات عامة للـ LTR */
+      html[dir="ltr"] body {
+        text-align: left;
+      }
+
+      html[dir="ltr"] .admin-sidebar {
+        right: auto;
+        left: 0;
+      }
+
+      html[dir="ltr"] .admin-main {
+        margin-right: 0;
+        margin-left: var(--sidebar-width);
+      }
+
+      html[dir="ltr"] .sidebar-item {
+        border-right: none;
+        border-left: 3px solid transparent;
+        flex-direction: row-reverse;
+      }
+
+      html[dir="ltr"] .sidebar-item:hover,
+      html[dir="ltr"] .sidebar-item.active {
+        border-right-color: transparent;
+        border-left-color: var(--primary-color);
+      }
+
+      html[dir="ltr"] .stat-icon {
+        margin-right: 0;
+        margin-left: 20px;
+      }
+
+      /* تعديلات الجداول للـ LTR */
+      html[dir="ltr"] table {
+        text-align: left;
+      }
+
+      html[dir="ltr"] th,
+      html[dir="ltr"] td {
+        text-align: left;
+      }
+
+      /* تعديلات النماذج للـ LTR */
+      html[dir="ltr"] .form-group label {
+        text-align: left;
+      }
+
+      /* زر تبديل اللغة */
+      #langToggle {
+        font-weight: 600;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+      }
+
+      /* Responsive للـ LTR */
+      @media (max-width: 768px) {
+        html[dir="ltr"] .admin-sidebar {
+          transform: translateX(-100%);
+          right: auto;
+          left: 0;
+        }
+
+        html[dir="ltr"] .admin-sidebar.show {
+          transform: translateX(0);
+        }
+
+        html[dir="ltr"] .admin-main {
+          margin-left: 0;
+        }
+      }
     </style>
   </head>
   <body>
@@ -522,34 +605,33 @@
             href="#"
             class="sidebar-item active"
             onclick="showSection('dashboard', event)"
-
           >
             <i class="fas fa-tachometer-alt"></i>
-            <span>الإحصائيات</span>
+            <span data-i18n="statistics">الإحصائيات</span>
           </a>
           <a href="#" class="sidebar-item" onclick="showSection('users')">
             <i class="fas fa-users"></i>
-            <span>المستخدمين</span>
+            <span data-i18n="users">المستخدمين</span>
           </a>
           <a href="#" class="sidebar-item" onclick="showSection('products')">
             <i class="fas fa-box"></i>
-            <span>المنتجات</span>
+            <span data-i18n="products">المنتجات</span>
           </a>
           <a href="#" class="sidebar-item" onclick="showSection('offers')">
             <i class="fas fa-tags"></i>
-            <span>العروض</span>
+            <span data-i18n="offers">العروض</span>
           </a>
           <a href="#" class="sidebar-item" onclick="showSection('orders')">
             <i class="fas fa-shopping-cart"></i>
-            <span>الطلبات</span>
+            <span data-i18n="orders">الطلبات</span>
           </a>
           <a href="#" class="sidebar-item" onclick="showSection('settings')">
             <i class="fas fa-cog"></i>
-            <span>الإعدادات</span>
+            <span data-i18n="settings">الإعدادات</span>
           </a>
           <a href="#" class="sidebar-item" onclick="logout()">
             <i class="fas fa-sign-out-alt"></i>
-            <span>تسجيل الخروج</span>
+            <span data-i18n="logout">تسجيل الخروج</span>
           </a>
         </nav>
       </aside>
@@ -558,15 +640,22 @@
       <main class="admin-main">
         <!-- Header -->
         <header class="admin-header">
-          <h1 id="sectionTitle">الإحصائيات</h1>
+          <h1 id="sectionTitle" data-i18n="statistics">الإحصائيات</h1>
 
           <div class="admin-actions">
-            <button class="btn-icon" id="darkModeToggle" title="الوضع الليلي">
+            <!-- زر تبديل اللغة -->
+            <button class="btn-icon" id="langToggle" title="Switch Language">
+              🇬🇧 EN
+            </button>
+
+            <!-- زر الوضع الليلي الموجود -->
+            <button class="btn-icon" id="darkModeToggle" data-i18n="dark_mode" title="الوضع الليلي">
               <i class="fas fa-moon"></i>
             </button>
+
             <button class="btn btn-primary" onclick="showAddModal()">
               <i class="fas fa-plus"></i>
-              إضافة جديد
+              <span data-i18n="add">إضافة جديد</span>
             </button>
           </div>
         </header>
@@ -582,7 +671,7 @@
                 </div>
                 <div class="stat-info">
                   <h3 id="totalUsers">0</h3>
-                  <p>إجمالي المستخدمين</p>
+                  <p data-i18n="total_users">إجمالي المستخدمين</p>
                 </div>
               </div>
               <div class="stat-card">
@@ -591,7 +680,7 @@
                 </div>
                 <div class="stat-info">
                   <h3 id="totalProducts">0</h3>
-                  <p>إجمالي المنتجات</p>
+                  <p data-i18n="total_products">إجمالي المنتجات</p>
                 </div>
               </div>
               <div class="stat-card">
@@ -600,7 +689,7 @@
                 </div>
                 <div class="stat-info">
                   <h3 id="totalOffers">0</h3>
-                  <p>إجمالي العروض</p>
+                  <p data-i18n="total_offers">إجمالي العروض</p>
                 </div>
               </div>
               <div class="stat-card">
@@ -609,7 +698,7 @@
                 </div>
                 <div class="stat-info">
                   <h3 id="totalOrders">0</h3>
-                  <p>إجمالي الطلبات</p>
+                  <p data-i18n="total_orders">إجمالي الطلبات</p>
                 </div>
               </div>
             </div>
@@ -619,25 +708,25 @@
           <section id="users" class="content-section">
             <div class="data-table">
               <div class="table-header">
-                <h3>إدارة المستخدمين</h3>
+                <h3 data-i18n="manage_users">إدارة المستخدمين</h3>
                 <button
                   class="btn btn-primary btn-sm"
                   onclick="showAddUserModal()"
                 >
                   <i class="fas fa-plus"></i>
-                  إضافة مستخدم
+                  <span data-i18n="add_user"></span>إضافة مستخدم</span>
                 </button>
               </div>
               <div class="table-responsive">
                 <table id="usersTable">
                   <thead>
                     <tr>
-                      <th>الاسم</th>
-                      <th>البريد الإلكتروني</th>
-                      <th>رقم الجوال</th>
-                      <th>الدور</th>
-                      <th>الحالة</th>
-                      <th>الإجراءات</th>
+                      <th data-i18n="name">الاسم</th>
+                      <th data-i18n="email">البريد الإلكتروني</th>
+                      <th data-i18n="phone">رقم الجوال</th>
+                      <th data-i18n="role">الدور</th>
+                      <th data-i18n="status">الحالة</th>
+                      <th data-i18n="actions">الإجراءات</th>
                     </tr>
                   </thead>
                   <tbody id="usersTableBody">
@@ -652,26 +741,26 @@
           <section id="products" class="content-section">
             <div class="data-table">
               <div class="table-header">
-                <h3>إدارة المنتجات</h3>
+                <h3 data-i18n="manage_products">إدارة المنتجات</h3>
                 <button
                   class="btn btn-primary btn-sm"
                   onclick="showAddProductModal()"
                 >
                   <i class="fas fa-plus"></i>
-                  إضافة منتج
+                  <span data-i18n="add_product"></span>إضافة منتج</span>
                 </button>
               </div>
               <div class="table-responsive">
                 <table id="productsTable">
                   <thead>
                     <tr>
-                      <th>الصورة</th>
-                      <th>الاسم</th>
-                      <th>الفئة</th>
-                      <th>السعر</th>
-                      <th>الخصم</th>
-                      <th>التقييم</th>
-                      <th>الإجراءات</th>
+                      <th data-i18n="image">الصورة</th>
+                      <th data-i18n="name">الاسم</th>
+                      <th data-i18n="category">الفئة</th>
+                      <th data-i18n="price">السعر</th>
+                      <th data-i18n="discount">الخصم</th>
+                      <th data-i18n="rating">التقييم</th>
+                      <th data-i18n="actions">الإجراءات</th>
                     </tr>
                   </thead>
                   <tbody id="productsTableBody">
@@ -686,25 +775,25 @@
           <section id="offers" class="content-section">
             <div class="data-table">
               <div class="table-header">
-                <h3>إدارة العروض</h3>
+                <h3 data-i18n="manage_offers">إدارة العروض</h3>
                 <button
                   class="btn btn-primary btn-sm"
                   onclick="showAddOfferModal()"
                 >
                   <i class="fas fa-plus"></i>
-                  إضافة عرض
+                  <span data-i18n="add_offer"></span>إضافة عرض جديد</span>
                 </button>
               </div>
               <div class="table-responsive">
                 <table id="offersTable">
                   <thead>
                     <tr>
-                      <th>العنوان</th>
-                      <th>الخصم</th>
-                      <th>تاريخ البداية</th>
-                      <th>تاريخ النهاية</th>
-                      <th>الحالة</th>
-                      <th>الإجراءات</th>
+                      <th data-i18n="title">العنوان</th>
+                      <th data-i18n="discount">الخصم</th>
+                      <th data-i18n="start_date">تاريخ البداية</th>
+                      <th data-i18n="end_date">تاريخ النهاية</th>
+                      <th data-i18n="status">الحالة</th>
+                      <th data-i18n="actions">الإجراءات</th>
                     </tr>
                   </thead>
                   <tbody id="offersTableBody">
@@ -719,18 +808,18 @@
           <section id="orders" class="content-section">
             <div class="data-table">
               <div class="table-header">
-                <h3>إدارة الطلبات</h3>
+                <h3 data-i18n="manage_orders">إدارة الطلبات</h3>
               </div>
               <div class="table-responsive">
                 <table id="ordersTable">
                   <thead>
                     <tr>
-                      <th>رقم الطلب</th>
-                      <th>العميل</th>
-                      <th>تاريخ الطلب</th>
-                      <th>الإجمالي</th>
-                      <th>الحالة</th>
-                      <th>الإجراءات</th>
+                      <th data-i18n="order_number">رقم الطلب</th>
+                      <th data-i18n="customer">العميل</th>
+                      <th data-i18n="order_date">تاريخ الطلب</th>
+                      <th data-i18n="total">الإجمالي</th>
+                      <th data-i18n="status">الحالة</th>
+                      <th data-i18n="actions">الإجراءات</th>
                     </tr>
                   </thead>
                   <tbody id="ordersTableBody">
@@ -744,7 +833,7 @@
           <!-- Settings Section -->
           <section id="settings" class="content-section">
             <div class="form-card">
-              <h3>إعدادات الموقع</h3>
+              <h3 data-i18n="site_settings">إعدادات الموقع</h3>
               <form id="settingsForm">
                 <div class="form-group">
                   <input
@@ -753,7 +842,7 @@
                     name="siteName"
                     value="مجمع الشامل"
                   />
-                  <label for="siteName">اسم الموقع</label>
+                  <label for="siteName" data-i18n="site_name">اسم الموقع</label>
                 </div>
                 <div class="form-group">
                   <input
@@ -762,7 +851,7 @@
                     name="siteEmail"
                     value="info@shamel-market.com"
                   />
-                  <label for="siteEmail">البريد الإلكتروني</label>
+                  <label for="siteEmail" data-i18n="site_email">البريد الإلكتروني</label>
                 </div>
                 <div class="form-group">
                   <input
@@ -771,9 +860,9 @@
                     name="sitePhone"
                     value="+966 50 000 0000"
                   />
-                  <label for="sitePhone">رقم الهاتف</label>
+                  <label for="sitePhone" data-i18n="site_phone">رقم الهاتف</label>
                 </div>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" data-i18n="save_settings">
                   حفظ الإعدادات
                 </button>
               </form>
@@ -788,7 +877,7 @@
     <div class="modal" id="userModal">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 id="userModalTitle">إضافة مستخدم</h3>
+          <h3 id="userModalTitle" data-i18n="add_user">إضافة مستخدم</h3>
           <button class="close-modal" onclick="closeModal('userModal')">
             &times;
           </button>
@@ -796,15 +885,15 @@
         <form id="userForm">
           <div class="form-group">
             <input type="text" id="userName" name="userName" required />
-            <label for="userName">الاسم الكامل</label>
+            <label for="userName" data-i18n="full_name">الاسم الكامل</label>
           </div>
           <div class="form-group">
             <input type="email" id="userEmail" name="userEmail" required />
-            <label for="userEmail">البريد الإلكتروني</label>
+            <label for="userEmail" data-i18n="email">البريد الإلكتروني</label>
           </div>
           <div class="form-group">
             <input type="tel" id="userPhone" name="userPhone" required />
-            <label for="userPhone">رقم الجوال</label>
+            <label for="userPhone" data-i18n="phone">رقم الجوال</label>
           </div>
           <div class="form-group">
             <input
@@ -813,29 +902,30 @@
               name="userPassword"
               required
             />
-            <label for="userPassword">كلمة المرور</label>
+            <label for="userPassword" data-i18n="password">كلمة المرور</label>
           </div>
           <div class="form-group">
-            <label for="userRole">الدور</label>
+            <label for="userRole" data-i18n="role">الدور</label>
             <select id="userRole" name="userRole" required>
-              <option value="user">مستخدم</option>
-              <option value="admin">مدير</option>
+              <option value="user" data-i18n="user_role">مستخدم</option>
+              <option value="admin" data-i18n="admin_role">مدير</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="userStatus">الحالة</label>
+            <label for="userStatus" data-i18n="status">الحالة</label>
             <select id="userStatus" name="userStatus" required>
-              <option value="active">نشط</option>
-              <option value="inactive">غير نشط</option>
+              <option value="active" data-i18n="active_status">نشط</option>
+              <option value="inactive" data-i18n="inactive_status">غير نشط</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary">حفظ</button>
+          <button type="submit" class="btn btn-primary" data-i18n="save">حفظ</button>
           <button
             type="button"
             class="btn btn-outline"
             onclick="closeModal('userModal')"
-          >
-            إلغاء
+            data-i18n="cancel"
+           >
+            إلغاء 
           </button>
         </form>
       </div>
@@ -845,7 +935,7 @@
     <div class="modal" id="productModal">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 id="productModalTitle">إضافة منتج</h3>
+          <h3 id="productModalTitle" data-i18n="add_product">إضافة منتج</h3>
           <button class="close-modal" onclick="closeModal('productModal')">
             &times;
           </button>
@@ -853,17 +943,17 @@
         <form id="productForm">
           <div class="form-group">
             <input type="text" id="productName" name="productName" required />
-            <label for="productName">اسم المنتج</label>
+            <label for="productName" data-i18n="product_name">اسم المنتج</label>
           </div>
           <div class="form-group">
             <select id="productCategory" name="productCategory" required>
-              <label for="productCategory">الفئة</label>
-              <option value="food">المواد الغذائية</option>
-              <option value="clothes">الملابس</option>
-              <option value="shoes">الأحذية</option>
-              <option value="home">الأدوات المنزلية</option>
-              <option value="perfume">العطور</option>
-              <option value="gifts">الهدايا</option>
+              <label for="productCategory" data-i18n="category">الفئة</label>
+              <option value="food" data-i18n="food_category">المواد الغذائية</option>
+              <option value="clothes" data-i18n="clothes_category">الملابس</option>
+              <option value="shoes" data-i18n="shoes_category">الأحذية</option>
+              <option value="home" data-i18n="home_category">الأدوات المنزلية</option>
+              <option value="perfume" data-i18n="perfume_category">العطور</option>
+              <option value="gifts" data-i18n="gifts_category">الهدايا</option>
             </select>
           </div>
           <div class="form-row">
@@ -874,7 +964,7 @@
                 name="productPrice"
                 required
               />
-              <label for="productPrice">السعر</label>
+              <label for="productPrice" data-i18n="price">السعر</label>
             </div>
             <div class="form-group">
               <input
@@ -882,7 +972,7 @@
                 id="productOldPrice"
                 name="productOldPrice"
               />
-              <label for="productOldPrice">السعر القديم</label>
+              <label for="productOldPrice" data-i18n="old_price">السعر القديم</label>
             </div>
           </div>
           <div class="form-row">
@@ -896,7 +986,7 @@
                 name="productRating"
                 required
               />
-              <label for="productRating">التقييم</label>
+              <label for="productRating" data-i18n="rating">التقييم</label>
             </div>
             <div class="form-group">
               <input
@@ -905,7 +995,7 @@
                 name="productReviews"
                 required
               />
-              <label for="productReviews">عدد التقييمات</label>
+              <label for="productReviews" data-i18n="reviews_count">عدد التقييمات</label>
             </div>
           </div>
           <div class="form-group">
@@ -916,7 +1006,7 @@
               placeholder="مثال: fas fa-box"
               required
             />
-            <label for="productIcon">الأيقونة</label>
+            <label for="productIcon" data-i18n="icon">الأيقونة</label>
           </div>
           <div class="form-group">
             <input
@@ -925,7 +1015,7 @@
               name="productBadge"
               placeholder="مثال: خصم 25%"
             />
-            <label for="productBadge">الشارة</label>
+            <label for="productBadge" data-i18n="badge">الشارة</label>
           </div>
           <div class="form-group">
             <textarea
@@ -934,13 +1024,14 @@
               rows="3"
               required
             ></textarea>
-            <label for="productDescription">الوصف</label>
+            <label for="productDescription" data-i18n="description">الوصف</label>
           </div>
-          <button type="submit" class="btn btn-primary">حفظ</button>
+          <button type="submit" class="btn btn-primary" data-i18n="save">حفظ</button>
           <button
             type="button"
             class="btn btn-outline"
             onclick="closeModal('productModal')"
+            data-i18n="cancel"
           >
             إلغاء
           </button>
@@ -952,7 +1043,7 @@
     <div class="modal" id="offerModal">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 id="offerModalTitle">إضافة عرض</h3>
+          <h3 id="offerModalTitle" data-i18n="add_offer">إضافة عرض</h3>
           <button class="close-modal" onclick="closeModal('offerModal')">
             &times;
           </button>
@@ -960,7 +1051,7 @@
         <form id="offerForm">
           <div class="form-group">
             <input type="text" id="offerTitle" name="offerTitle" required />
-            <label for="offerTitle">عنوان العرض</label>
+            <label for="offerTitle" data-i18n="offer_title">عنوان العرض</label>
           </div>
           <div class="form-group">
             <input
@@ -971,7 +1062,7 @@
               max="90"
               required
             />
-            <label for="offerDiscount">نسبة الخصم (%)</label>
+            <label for="offerDiscount" data-i18n="offer_discount">نسبة الخصم (%)</label>
           </div>
           <div class="form-row">
             <div class="form-group">
@@ -981,7 +1072,7 @@
                 name="offerStartDate"
                 required
               />
-              <label for="offerStartDate">تاريخ البداية</label>
+              <label for="offerStartDate" data-i18n="offer_start_date">تاريخ البداية</label>
             </div>
             <div class="form-group">
               <input
@@ -990,7 +1081,7 @@
                 name="offerEndDate"
                 required
               />
-              <label for="offerEndDate">تاريخ النهاية</label>
+              <label for="offerEndDate" data-i18n="offer_end_date">تاريخ النهاية</label>
             </div>
           </div>
           <div class="form-group">
@@ -1000,14 +1091,14 @@
               rows="3"
               required
             ></textarea>
-            <label for="offerDescription">الوصف</label>
+            <label for="offerDescription" data-i18n="description">الوصف</label>
           </div>
-          <button type="submit" class="btn btn-primary">حفظ</button>
+          <button type="submit" class="btn btn-primary" data-i18n="save">حفظ</button>
           <button
             type="button"
             class="btn btn-outline"
             onclick="showSection('dashboard', event)"
-
+              
           >
             إلغاء
           </button>
@@ -1365,10 +1456,10 @@
       // تفعيل المزامنة
       syncDarkModeAcrossTabs();
     </script>
-        <script src="admin.js"></script>
+    <script src="translations.js"></script>
+
+    <script src="admin.js"></script>
     <script src="app-safe.js"></script>
-        <script src="script.js"></script>
-
-
+    <script src="script.js"></script>
   </body>
 </html>

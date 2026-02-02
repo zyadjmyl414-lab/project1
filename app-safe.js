@@ -1,19 +1,14 @@
-/* ================= GLOBAL INIT ================= */
 document.addEventListener("DOMContentLoaded", () => {
-
-  /* ===== Loader Fix ===== */
   const loader = document.getElementById("loader");
   if (loader) {
     window.addEventListener("load", () => loader.classList.add("hidden"));
   }
 
-  /* ===== Overlay Safe Control ===== */
   const overlay = document.getElementById("overlay");
   if (overlay) {
     overlay.classList.remove("show");
   }
 
-  /* ===== FORCE LOGIN NAVIGATION (FINAL FIX) ===== */
   const loginBtn = document.getElementById("loginBtn");
   if (loginBtn) {
     loginBtn.addEventListener("click", (e) => {
@@ -24,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ===== Header / Menu Safe Guards ===== */
   const menuToggle = document.querySelector(".menu-toggle");
   const navbar = document.querySelector(".navbar");
 
@@ -40,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ===== Cart / Modal Safety ===== */
   const cartBtn = document.querySelector(".cart-btn");
   const cartSidebar = document.querySelector(".cart-sidebar");
 
@@ -55,18 +48,12 @@ document.addEventListener("DOMContentLoaded", () => {
       cartSidebar.classList.remove("open");
     });
   }
-
-  /* ===== GLOBAL CLICK CLEAN (NO preventDefault) ===== */
-  document.addEventListener("click", () => {
-    // intentionally empty – do NOT block clicks
-  });
-
 });
 
-/* ================= ACCESSIBILITY HELPERS ================= */
 function safeNavigate(url) {
   window.location.assign(url);
 }
+
 function showAddModal() {
   showSection('users');
 }
