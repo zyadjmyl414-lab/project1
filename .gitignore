@@ -1,0 +1,24 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# macOS system files
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# IDE files
+.idea/
+.vscode/
+
+# Build directories
+build/
+dist/
+
+# Dependency directories
+yarn-error.log
+package-lock.json
